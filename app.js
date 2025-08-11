@@ -531,64 +531,64 @@ class FocusToDoApp {
         document.getElementById('settingsAlarm').style.display = section === 'Alarm Sound' ? 'block' : 'none';
         document.getElementById('settingsAbout').style.display = section === 'About' ? 'block' : 'none';
     }
-}
 
-showNotifications() {
-    // TODO: Implement notifications panel
-    // Should show recent activities, reminders, etc.
-    console.log('Showing notifications');
-}
+    showNotifications() {
+        // TODO: Implement notifications panel
+        // Should show recent activities, reminders, etc.
+        console.log('Showing notifications');
+    }
 
-showDetailedStats() {
-    // TODO: Implement detailed statistics view
-    // Should show charts, productivity trends, time tracking, etc.
-    console.log('Showing detailed stats');
-}
+    showDetailedStats() {
+        // TODO: Implement detailed statistics view
+        // Should show charts, productivity trends, time tracking, etc.
+        console.log('Showing detailed stats');
+    }
 
-showFavorites() {
-    // TODO: Implement favorites/starred tasks view
-    console.log('Showing favorites');
-}
+    showFavorites() {
+        // TODO: Implement favorites/starred tasks view
+        console.log('Showing favorites');
+    }
 
-// Data Persistence
-saveTasks() {
-    localStorage.setItem('focusTasks', JSON.stringify(this.tasks));
-}
+    // Data Persistence
+    saveTasks() {
+        localStorage.setItem('focusTasks', JSON.stringify(this.tasks));
+    }
 
-// Export/Import functionality (bonus features to implement)
-exportData() {
-    // TODO: Export tasks to JSON file
-    const dataStr = JSON.stringify({ tasks: this.tasks, theme: this.theme }, null, 2);
-    const dataUri = 'data:application/json;charset=utf-8,' + encodeURIComponent(dataStr);
+    // Export/Import functionality (bonus features to implement)
+    exportData() {
+        // TODO: Export tasks to JSON file
+        const dataStr = JSON.stringify({ tasks: this.tasks, theme: this.theme }, null, 2);
+        const dataUri = 'data:application/json;charset=utf-8,' + encodeURIComponent(dataStr);
 
-    const exportFileDefaultName = 'focus-todo-backup.json';
+        const exportFileDefaultName = 'focus-todo-backup.json';
 
-    const linkElement = document.createElement('a');
-    linkElement.setAttribute('href', dataUri);
-    linkElement.setAttribute('download', exportFileDefaultName);
-    linkElement.click();
-}
+        const linkElement = document.createElement('a');
+        linkElement.setAttribute('href', dataUri);
+        linkElement.setAttribute('download', exportFileDefaultName);
+        linkElement.click();
+    }
 
-importData(file) {
-    // TODO: Import tasks from JSON file
-    const reader = new FileReader();
-    reader.onload = (e) => {
-        try {
-            const data = JSON.parse(e.target.result);
-            if (data.tasks && Array.isArray(data.tasks)) {
-                this.tasks = data.tasks;
-                this.saveTasks();
-                this.renderTasks();
-                this.updateStats();
-                this.updateCategoryCounts();
+    importData(file) {
+        // TODO: Import tasks from JSON file
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            try {
+                const data = JSON.parse(e.target.result);
+                if (data.tasks && Array.isArray(data.tasks)) {
+                    this.tasks = data.tasks;
+                    this.saveTasks();
+                    this.renderTasks();
+                    this.updateStats();
+                    this.updateCategoryCounts();
+                }
+            } catch (error) {
+                alert('Error importing data. Please check the file format.');
             }
-        } catch (error) {
-            alert('Error importing data. Please check the file format.');
-        }
-    };
-    reader.readAsText(file);
+        };
+        reader.readAsText(file);
+    }
 }
-}
+
 
 // Initialize the application when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
