@@ -307,42 +307,42 @@
 
 /* CSS Variables for Theme Management */
 :root {
-    /* Default Dark Theme with Red Accent */
-    --bg-primary: #0a0a0a;
+    /* Default Dark Theme - Black & Red Only */
+    --bg-primary: #000000;
     --bg-secondary: #111111;
     --bg-tertiary: #1a1a1a;
-    --bg-card: #151515;
+    --bg-card: #0a0a0a;
     --bg-hover: #202020;
     --text-primary: #ffffff;
     --text-secondary: #e0e0e0;
     --text-muted: #888888;
-    --border-color: #2a2a2a;
-    --accent-color: #ff4444;
-    --accent-hover: #ff6666;
-    --accent-light: rgba(255, 68, 68, 0.1);
-    --red-color: #ff4444;
-    --red-light: rgba(255, 68, 68, 0.1);
-    --yellow-color: #ffcc00;
-    --yellow-light: rgba(255, 204, 0, 0.1);
-    --green-color: #00ff88;
-    --green-light: rgba(0, 255, 136, 0.1);
-    --purple-color: #bb44ff;
-    --purple-light: rgba(187, 68, 255, 0.1);
-    --pink-color: #ff44aa;
-    --pink-light: rgba(255, 68, 170, 0.1);
-    --indigo-color: #4488ff;
-    --indigo-light: rgba(68, 136, 255, 0.1);
-    --shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
-    --shadow-hover: 0 8px 40px rgba(0, 0, 0, 0.7);
+    --border-color: #333333;
+    --accent-color: #ff0000;
+    --accent-hover: #ff3333;
+    --accent-light: rgba(255, 0, 0, 0.1);
+    --red-color: #ff0000;
+    --red-light: rgba(255, 0, 0, 0.1);
+    --yellow-color: #ff0000;
+    --yellow-light: rgba(255, 0, 0, 0.1);
+    --green-color: #ff0000;
+    --green-light: rgba(255, 0, 0, 0.1);
+    --purple-color: #ff0000;
+    --purple-light: rgba(255, 0, 0, 0.1);
+    --pink-color: #ff0000;
+    --pink-light: rgba(255, 0, 0, 0.1);
+    --indigo-color: #ff0000;
+    --indigo-light: rgba(255, 0, 0, 0.1);
+    --shadow: 0 4px 20px rgba(0, 0, 0, 0.8);
+    --shadow-hover: 0 8px 40px rgba(0, 0, 0, 0.9);
     --sidebar-width: 280px;
-    --timer-bg: #111111;
-    --timer-accent: #ff4444;
-    --gradient-primary: linear-gradient(135deg, #ff4444 0%, #ff6666 100%);
-    --gradient-accent: linear-gradient(135deg, #ff4444 0%, #ff6666 100%);
-    --gradient-success: linear-gradient(135deg, #00ff88 0%, #44ff99 100%);
-    --gradient-warning: linear-gradient(135deg, #ffcc00 0%, #ffdd44 100%);
-    --gradient-danger: linear-gradient(135deg, #ff4444 0%, #ff2222 100%);
-    --gradient-dark: linear-gradient(135deg, #111111 0%, #1a1a1a 100%);
+    --timer-bg: #000000;
+    --timer-accent: #ff0000;
+    --gradient-primary: linear-gradient(135deg, #ff0000 0%, #ff3333 100%);
+    --gradient-accent: linear-gradient(135deg, #ff0000 0%, #ff3333 100%);
+    --gradient-success: linear-gradient(135deg, #ff0000 0%, #ff3333 100%);
+    --gradient-warning: linear-gradient(135deg, #ff0000 0%, #ff3333 100%);
+    --gradient-danger: linear-gradient(135deg, #ff0000 0%, #cc0000 100%);
+    --gradient-dark: linear-gradient(135deg, #000000 0%, #111111 100%);
 }
 
 /* Logo style for app icon */
@@ -438,9 +438,9 @@
     --bg-tertiary: #1a2d1a;
     --bg-card: #0a1a0a;
     --bg-hover: #1a3d1a;
-    --text-primary: #00ff00;
-    --text-secondary: #00cc00;
-    --text-muted: #008800;
+    --text-primary: #000000;
+    --text-secondary: #333333;
+    --text-muted: #666666;
     --border-color: #003300;
     --accent-color: #00ff00;
     --accent-hover: #33ff33;
@@ -469,6 +469,44 @@
     --gradient-dark: linear-gradient(135deg, #000000 0%, #0d1b0d 100%);
 }
 
+/* Dark Yellow Theme - Dark with Yellow Accents */
+.yellow-theme {
+    --bg-primary: #1a1a0d;
+    --bg-secondary: #2d2d1a;
+    --bg-tertiary: #3d3d26;
+    --bg-card: #262619;
+    --bg-hover: #404033;
+    --text-primary: #ffffff;
+    --text-secondary: #e6e6cc;
+    --text-muted: #b3b399;
+    --border-color: #4d4d33;
+    --accent-color: #ffcc00;
+    --accent-hover: #ffdd33;
+    --accent-light: rgba(255, 204, 0, 0.1);
+    --red-color: #ff4444;
+    --red-light: rgba(255, 68, 68, 0.1);
+    --yellow-color: #ffcc00;
+    --yellow-light: rgba(255, 204, 0, 0.1);
+    --green-color: #ffcc00;
+    --green-light: rgba(255, 204, 0, 0.1);
+    --purple-color: #ffcc00;
+    --purple-light: rgba(255, 204, 0, 0.1);
+    --pink-color: #ffcc00;
+    --pink-light: rgba(255, 204, 0, 0.1);
+    --indigo-color: #ffcc00;
+    --indigo-light: rgba(255, 204, 0, 0.1);
+    --shadow: 0 4px 20px rgba(255, 204, 0, 0.2);
+    --shadow-hover: 0 8px 40px rgba(255, 204, 0, 0.3);
+    --timer-bg: #1a1a0d;
+    --timer-accent: #ffcc00;
+    --gradient-primary: linear-gradient(135deg, #ffcc00 0%, #ffdd33 100%);
+    --gradient-accent: linear-gradient(135deg, #ffcc00 0%, #ffdd33 100%);
+    --gradient-success: linear-gradient(135deg, #ffcc00 0%, #ffdd33 100%);
+    --gradient-warning: linear-gradient(135deg, #ffcc00 0%, #ffdd33 100%);
+    --gradient-danger: linear-gradient(135deg, #ff4444 0%, #ff2222 100%);
+    --gradient-dark: linear-gradient(135deg, #1a1a0d 0%, #2d2d1a 100%);
+}
+
 /* Matrix Theme Special Effects */
 .matrix-theme body {
     font-family: 'Courier New', Consolas, 'Lucida Console', monospace;
@@ -488,6 +526,17 @@
 .matrix-theme .top-bar {
     border-bottom: 2px solid #003300;
     box-shadow: 0 2px 10px rgba(0, 255, 0, 0.3);
+}
+
+/* Ocean Theme Navigation Overrides */
+.ocean-theme .nav-item[data-category="today"].active {
+    background: var(--gradient-primary);
+    box-shadow: 0 0 20px rgba(74, 158, 255, 0.3);
+}
+
+.ocean-theme .nav-item[data-category="overdue"].active {
+    background: var(--gradient-primary);
+    box-shadow: 0 0 20px rgba(74, 158, 255, 0.3);
 }
 
 /* Reset and Base Styles */
