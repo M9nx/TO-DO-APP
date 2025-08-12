@@ -101,6 +101,7 @@ class FocusToDoApp {
         const fullscreenBtn = document.getElementById('fullscreenBtn');
         const timerModeBtn = document.getElementById('timerModeBtn');
         const whiteNoiseBtn = document.getElementById('whiteNoiseBtn');
+        const homeBtn = document.getElementById('homeBtn');
 
         timerCloseBtn.addEventListener('click', () => this.closeTimerModal());
         modalContinueBtn.addEventListener('click', () => this.toggleTimer());
@@ -108,6 +109,7 @@ class FocusToDoApp {
         fullscreenBtn.addEventListener('click', () => this.toggleFullscreen());
         timerModeBtn.addEventListener('click', () => this.changeTimerMode());
         whiteNoiseBtn.addEventListener('click', () => this.toggleWhiteNoise());
+        homeBtn.addEventListener('click', () => this.closeTimerModal());
     }
 
     // Theme Management
