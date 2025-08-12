@@ -1,4 +1,4 @@
-# 🎯 Focus To-Do App
+# 🎯  To-Do App
 
 <div align="center">
 
@@ -14,9 +14,9 @@
 
 </div>
 
-## 🌟 Features
+##  Features
 
-### 📋 **Task Management**
+###  **Task Management**
 -  **Smart Categorization** - Organize tasks by Today, Tomorrow, This Week, Planned, Someday
 -  **Priority Levels** - Set Low, Medium, or High priority for tasks
 -  **Due Date Tracking** - Set and track task deadlines
@@ -24,7 +24,7 @@
 -  **Rich Descriptions** - Add detailed notes and descriptions to tasks
 -  **Task Categories** - Automatic sorting into Today, Overdue, Completed sections
 
-### 🍅 **Pomodoro Timer Integration**
+###  **Pomodoro Timer Integration**
 -  **Customizable Sessions** - Focus sessions with break intervals
 -  **Progress Tracking** - Track completed sessions and total focus time
 -  **Streak Counter** - Monitor your productivity streaks
@@ -32,24 +32,24 @@
 -  **Smart Notifications** - Audio alerts for session completion
 -  **Fullscreen Mode** - Distraction-free timer interface
 
-### 🎨 **Themes & Customization**
+###  **Themes & Customization**
 -  **Multiple Themes** - Dark Red, Pure White, Ocean Blue, Matrix Green, Dark Yellow
 -  **Dark/Light Mode** - Seamless theme switching
 -  **Advanced Settings** - Customize every aspect of your experience
 -  **Responsive Design** - Perfect on desktop, tablet, and mobile
 
-### 🔊 **Sound & Notifications**
+###  **Sound & Notifications**
 -  **Task Completion Sounds** - Audio feedback for completed tasks
 -  **Pomodoro Alerts** - Custom sounds for session endings
 -  **Volume Control** - Adjustable master volume
 -  **Sound Selection** - Choose from multiple notification sounds
 
-### 💾 **Data Persistence**
+###  **Data Persistence**
 -  **Local Storage** - Your data stays with you
 -  **Statistics Tracking** - Monitor your productivity metrics
 -  **Auto-Save** - Never lose your progress
 
-## 🚀 Quick Start
+##  Quick Start
 
 ### Online Usage
 Simply visit the [live demo](https://m9nx.github.io/TO-DO-APP) and start organizing your tasks immediately!
@@ -72,7 +72,7 @@ Simply visit the [live demo](https://m9nx.github.io/TO-DO-APP) and start organiz
 
 3. **Start organizing!** 
 
-## 📖 How to Use
+##  How to Use
 
 ### Adding Tasks
 1. Click the task input field
@@ -95,7 +95,7 @@ Simply visit the [live demo](https://m9nx.github.io/TO-DO-APP) and start organiz
 4. Adjust sound preferences
 5. Toggle project visibility
 
-## 🏗️ Project Structure
+## Project Structure
 
 ```
 TO-DO-APP/
@@ -106,7 +106,7 @@ TO-DO-APP/
 └── README.md           # This file
 ```
 
-## 🛠️ Technology Stack
+## 🛠 Technology Stack
 
 - **Frontend**: Pure HTML5, CSS3, JavaScript (ES6+)
 - **Styling**: Custom CSS with CSS Grid & Flexbox
@@ -114,7 +114,7 @@ TO-DO-APP/
 - **Storage**: Browser Local Storage API
 - **Responsive**: Mobile-first design approach
 
-## 📊 Statistics & Metrics
+##  Statistics & Metrics
 
 The app tracks your productivity with detailed statistics:
 -  **Total Focus Time** - Time spent in productive work
@@ -122,7 +122,7 @@ The app tracks your productivity with detailed statistics:
 -  **Current Streak** - Consecutive productive days
 -  **Daily Progress** - Tasks completed vs. planned
 
-## 🎯 Use Cases
+##  Use Cases
 
 - **Students**: Manage assignments and study sessions
 - **Professionals**: Track work tasks and projects
@@ -130,7 +130,7 @@ The app tracks your productivity with detailed statistics:
 - **Personal**: Daily life organization and habit building
 - **Teams**: Collaborative task management
 
-## 🌟 Why Focus To-Do?
+##  Why Focus To-Do?
 
 - ** Zero Setup** - Works immediately in any modern browser
 - **Privacy First** - All data stored locally on your device
@@ -139,7 +139,7 @@ The app tracks your productivity with detailed statistics:
 - **Focus-Oriented** - Built-in Pomodoro technique for better productivity
 - **Always Available** - Works offline once loaded
 
-## 🤝 Contributing
+##  Contributing
 
 Contributions are what make the open-source community amazing! Any contributions you make are **greatly appreciated**.
 
@@ -149,11 +149,11 @@ Contributions are what make the open-source community amazing! Any contributions
 4. Push to the Branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
 
-## 📝 License
+##  License
 
 Distributed under the MIT License. See `LICENSE` for more information.
 
-## 👨‍💻 Developer
+##  Developer
 
 **Mounir Elsrogy (M9nx)**
 
@@ -161,7 +161,7 @@ Distributed under the MIT License. See `LICENSE` for more information.
 -  LinkedIn: [Mounir Elsrogy](https://www.linkedin.com/in/mounir-elsrogy-5a6406327)
 -  Twitter: [@__m9nx](https://twitter.com/__m9nx)
 
-## 🙏 Acknowledgments
+##  Acknowledgments
 
 - Inspired by modern productivity methodologies
 - Built with ❤️ for the productivity community
