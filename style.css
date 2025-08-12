@@ -318,6 +318,7 @@ input {
     min-height: calc(100vh - 60px - 140px);
     /* Account for top bar and footer */
     position: relative;
+    padding-left: 20px; /* Account for sidebar left margin */
 }
 
 /* Sidebar */
@@ -329,6 +330,10 @@ input {
     flex-direction: column;
     overflow-y: auto;
     box-shadow: var(--shadow);
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: 20px;
+    border-radius: 12px;
 }
 
 .nav-menu {
@@ -1195,6 +1200,7 @@ input {
     .app-container {
         flex-direction: column;
         min-height: auto;
+        padding-left: 0; /* Remove sidebar left padding on mobile */
     }
 
     .sidebar {
@@ -1203,6 +1209,11 @@ input {
         order: 2;
         border-right: none;
         border-top: 1px solid var(--border-color);
+        margin-top: 20px;
+        margin-bottom: 20px;
+        margin-left: 20px;
+        margin-right: 20px;
+        border-radius: 12px;
     }
 
     .main-content {
@@ -1336,9 +1347,10 @@ input {
 .footer {
     background: var(--bg-secondary);
     border-top: 1px solid var(--border-color);
-    padding: 16px 0;
+    padding: 0px 0;
     margin-top: 40px;
     position: relative;
+    height: 5vh;
     width: 100%;
     box-shadow: 0 -1px 3px rgba(0, 0, 0, 0.1);
 }
@@ -1392,12 +1404,16 @@ input {
 }
 
 .footer-left p,
+
+
+
+
 .footer-center p {
-    margin: 0;
+    margin: 5 px 0;
     color: var(--text-secondary);
-    font-size: 0.85rem;
-    font-weight: 500;
-    line-height: 1.4;
+    font-size: 0.9rem;
+    font-weight: 400;
+    line-height: 1.8;
 }
 
 .footer-left p {
@@ -1415,7 +1431,7 @@ input {
     margin-bottom: 4px;
 }
 
-.footer-center strong {
+.footer-center a {
     color: var(--accent-color);
     font-weight: 700;
     font-size: 0.95rem;
