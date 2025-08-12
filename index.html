@@ -44,6 +44,18 @@
                     </div>
                     <div class="settings-main">
                         <div class="settings-section" id="settingsGeneral">
+                            <h3>Theme Settings</h3>
+                            <div class="theme-settings">
+                                <div class="setting-group">
+                                    <label for="themeSelector">Choose Theme:</label>
+                                    <select id="themeSelector" class="theme-select">
+                                        <option value="dark">Dark Red Theme</option>
+                                        <option value="light">Pure White Theme</option>
+                                        <option value="ocean">Ocean Blue Theme</option>
+                                    </select>
+                                </div>
+                            </div>
+
                             <h3>Projects</h3>
                             <ul class="settings-project-list">
                                 <li><span>Overdue</span><input type="checkbox" checked></li>
@@ -263,12 +275,79 @@
                     </div>
                 </div>
 
-                <!-- Task Input -->
+                <!-- Enhanced Task Input -->
                 <div class="task-input-container">
-                    <div class="task-input-wrapper">
-                        <span class="input-icon">+</span>
-                        <input type="text" id="taskInput" class="task-input"
-                            placeholder='Add a task to "Tasks", press Enter to save'>
+                    <div class="task-input-section">
+                        <div class="task-input-header">
+                            <h3>Add New Task</h3>
+                            <button class="quick-add-btn" id="quickAddBtn" title="Quick Add Mode">⚡</button>
+                        </div>
+
+                        <div class="task-input-wrapper">
+                            <span class="input-icon">📝</span>
+                            <input type="text" id="taskInput" class="task-input" placeholder='Enter task name...'>
+                            <button class="add-task-btn" id="addTaskBtn">
+                                <span class="add-icon">+</span>
+                            </button>
+                        </div>
+
+                        <div class="task-options" id="taskOptions">
+                            <div class="task-option-row">
+                                <div class="option-group">
+                                    <label for="taskPriority">Priority:</label>
+                                    <select id="taskPriority" class="task-select">
+                                        <option value="low">🟢 Low</option>
+                                        <option value="medium" selected>🟡 Medium</option>
+                                        <option value="high">🔴 High</option>
+                                    </select>
+                                </div>
+
+                                <div class="option-group">
+                                    <label for="taskCategory">Category:</label>
+                                    <select id="taskCategory" class="task-select">
+                                        <option value="today">📅 Today</option>
+                                        <option value="tomorrow">📆 Tomorrow</option>
+                                        <option value="thisweek">📋 This Week</option>
+                                        <option value="planned">📋 Planned</option>
+                                        <option value="someday">💭 Someday</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="task-option-row">
+                                <div class="option-group">
+                                    <label for="taskDueDate">Due Date:</label>
+                                    <input type="date" id="taskDueDate" class="task-date-input">
+                                </div>
+
+                                <div class="option-group">
+                                    <label for="taskEstimate">Estimate:</label>
+                                    <select id="taskEstimate" class="task-select">
+                                        <option value="15">15 minutes</option>
+                                        <option value="30" selected>30 minutes</option>
+                                        <option value="60">1 hour</option>
+                                        <option value="120">2 hours</option>
+                                        <option value="240">4+ hours</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="task-option-row">
+                                <div class="option-group full-width">
+                                    <label for="taskDescription">Description (optional):</label>
+                                    <textarea id="taskDescription" class="task-textarea"
+                                        placeholder="Add task description, notes, or details..."></textarea>
+                                </div>
+                            </div>
+
+                            <div class="task-actions">
+                                <button class="task-action-btn secondary" id="cancelTaskBtn">Cancel</button>
+                                <button class="task-action-btn primary" id="saveTaskBtn">
+                                    <span class="btn-icon">💾</span>
+                                    <span class="btn-text">Save Task</span>
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
 

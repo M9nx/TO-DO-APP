@@ -10,7 +10,7 @@ class FocusToDoApp {
         this.timerMinutes = 25;
         this.timerSeconds = 0;
         this.theme = localStorage.getItem('focusTheme') || 'dark';
-        
+
         // Enhanced Pomodoro Settings
         this.pomodoroSettings = {
             focusLength: 25,
@@ -31,7 +31,7 @@ class FocusToDoApp {
             totalFocusTime: 0,
             sessionHistory: []
         };
-        
+
         // Load saved Pomodoro settings
         this.loadPomodoroSettings();
 
@@ -41,6 +41,7 @@ class FocusToDoApp {
     init() {
         this.setupEventListeners();
         this.applyTheme();
+        this.updateThemeIcon();
         this.renderTasks();
         this.updateStats();
         this.updateCategoryCounts();
@@ -51,20 +52,25 @@ class FocusToDoApp {
         const themeToggle = document.querySelector('.theme-toggle');
         themeToggle.addEventListener('click', () => this.toggleTheme());
 
+        // Theme selector
+        document.addEventListener('DOMContentLoaded', () => {
+            const themeSelector = document.getElementById('themeSelector');
+            if (themeSelector) {
+                themeSelector.value = this.theme;
+                themeSelector.addEventListener('change', (e) => {
+                    this.changeTheme(e.target.value);
+                });
+            }
+        });
+
         // Navigation items
         const navItems = document.querySelectorAll('.nav-item');
         navItems.forEach(item => {
             item.addEventListener('click', (e) => this.switchCategory(e.currentTarget.dataset.category));
         });
 
-        // Task input
-        const taskInput = document.getElementById('taskInput');
-        taskInput.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter' && e.target.value.trim()) {
-                this.addTask(e.target.value.trim());
-                e.target.value = '';
-            }
-        });
+        // Enhanced Task input
+        this.setupTaskInput();
 
         // Timer controls
         const timerBtn = document.getElementById('timerBtn');
@@ -106,13 +112,195 @@ class FocusToDoApp {
 
     // Theme Management
     toggleTheme() {
-        this.theme = this.theme === 'dark' ? 'light' : 'dark';
+        const themes = ['dark', 'light', 'ocean'];
+        const currentIndex = themes.indexOf(this.theme);
+        const nextIndex = (currentIndex + 1) % themes.length;
+        this.theme = themes[nextIndex];
         this.applyTheme();
         localStorage.setItem('focusTheme', this.theme);
+        this.updateThemeIcon();
+        this.updateThemeSelector();
     }
 
     applyTheme() {
-        document.body.className = this.theme === 'dark' ? 'dark-theme' : 'light-theme';
+        document.body.className = `${this.theme}-theme`;
+    }
+
+    updateThemeIcon() {
+        const themeToggle = document.querySelector('.theme-toggle');
+        const icons = {
+            'dark': '🌙',
+            'light': '☀️',
+            'ocean': '🌊'
+        };
+        themeToggle.textContent = icons[this.theme];
+    }
+
+    updateThemeSelector() {
+        const themeSelector = document.getElementById('themeSelector');
+        if (themeSelector) {
+            themeSelector.value = this.theme;
+        }
+    }
+
+    changeTheme(newTheme) {
+        this.theme = newTheme;
+        this.applyTheme();
+        localStorage.setItem('focusTheme', this.theme);
+        this.updateThemeIcon();
+    }
+
+    // Enhanced Task Input Setup
+    setupTaskInput() {
+        const taskInput = document.getElementById('taskInput');
+        const quickAddBtn = document.getElementById('quickAddBtn');
+        const addTaskBtn = document.getElementById('addTaskBtn');
+        const taskOptions = document.getElementById('taskOptions');
+        const saveTaskBtn = document.getElementById('saveTaskBtn');
+        const cancelTaskBtn = document.getElementById('cancelTaskBtn');
+
+        let isExpanded = false;
+
+        // Quick add mode toggle
+        quickAddBtn.addEventListener('click', () => {
+            isExpanded = !isExpanded;
+            if (isExpanded) {
+                taskOptions.classList.add('expanded');
+                quickAddBtn.textContent = '⚡';
+                quickAddBtn.title = 'Simple Mode';
+            } else {
+                taskOptions.classList.remove('expanded');
+                quickAddBtn.textContent = '⚡';
+                quickAddBtn.title = 'Advanced Mode';
+                this.resetTaskForm();
+            }
+        });
+
+        // Simple task input (Enter key)
+        taskInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter' && e.target.value.trim()) {
+                if (!isExpanded) {
+                    this.addTask(e.target.value.trim());
+                    e.target.value = '';
+                } else {
+                    this.saveAdvancedTask();
+                }
+            }
+        });
+
+        // Simple add button
+        addTaskBtn.addEventListener('click', () => {
+            if (taskInput.value.trim()) {
+                if (!isExpanded) {
+                    this.addTask(taskInput.value.trim());
+                    taskInput.value = '';
+                } else {
+                    this.saveAdvancedTask();
+                }
+            }
+        });
+
+        // Advanced mode save
+        saveTaskBtn.addEventListener('click', () => {
+            this.saveAdvancedTask();
+        });
+
+        // Cancel advanced mode
+        cancelTaskBtn.addEventListener('click', () => {
+            this.resetTaskForm();
+            isExpanded = false;
+            taskOptions.classList.remove('expanded');
+        });
+
+        // Auto-expand on input focus (optional)
+        taskInput.addEventListener('focus', () => {
+            if (taskInput.value.length > 20) {
+                isExpanded = true;
+                taskOptions.classList.add('expanded');
+            }
+        });
+    }
+
+    resetTaskForm() {
+        document.getElementById('taskInput').value = '';
+        document.getElementById('taskPriority').value = 'medium';
+        document.getElementById('taskCategory').value = 'today';
+        document.getElementById('taskDueDate').value = '';
+        document.getElementById('taskEstimate').value = '30';
+        document.getElementById('taskDescription').value = '';
+    }
+
+    saveAdvancedTask() {
+        const title = document.getElementById('taskInput').value.trim();
+        if (!title) return;
+
+        const priority = document.getElementById('taskPriority').value;
+        const category = document.getElementById('taskCategory').value;
+        const dueDate = document.getElementById('taskDueDate').value;
+        const estimate = parseInt(document.getElementById('taskEstimate').value);
+        const description = document.getElementById('taskDescription').value.trim();
+
+        this.addAdvancedTask({
+            title,
+            priority,
+            category,
+            dueDate: dueDate || null,
+            estimatedTime: estimate,
+            description
+        });
+
+        this.resetTaskForm();
+        document.getElementById('taskOptions').classList.remove('expanded');
+    }
+
+    addAdvancedTask(taskData) {
+        const task = {
+            id: Date.now().toString(),
+            title: taskData.title,
+            completed: false,
+            priority: taskData.priority,
+            category: taskData.category,
+            createdAt: new Date().toISOString(),
+            dueDate: taskData.dueDate,
+            estimatedTime: taskData.estimatedTime,
+            actualTime: 0,
+            description: taskData.description || '',
+            tags: []
+        };
+
+        this.tasks.push(task);
+        this.saveTasks();
+        this.renderTasks();
+        this.updateStats();
+        this.updateCategoryCounts();
+
+        // Show success notification
+        this.showNotification(`Task "${task.title}" added successfully!`, 'success');
+    }
+
+    showNotification(message, type = 'info') {
+        // Simple notification system
+        const notification = document.createElement('div');
+        notification.className = `notification ${type}`;
+        notification.textContent = message;
+        notification.style.cssText = `
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--accent-color);
+            color: white;
+            padding: 12px 20px;
+            border-radius: 8px;
+            z-index: 10000;
+            animation: slideIn 0.3s ease;
+        `;
+
+        document.body.appendChild(notification);
+
+        setTimeout(() => {
+            notification.style.animation = 'slideOut 0.3s ease';
+            setTimeout(() => notification.remove(), 300);
+        }, 3000);
     }
 
     // Task Management
@@ -422,7 +610,7 @@ class FocusToDoApp {
 
     setTimerMode(mode) {
         this.pomodoroSettings.currentMode = mode;
-        
+
         switch (mode) {
             case 'focus':
                 this.timerMinutes = this.pomodoroSettings.focusLength;
@@ -434,7 +622,7 @@ class FocusToDoApp {
                 this.timerMinutes = this.pomodoroSettings.longBreakLength;
                 break;
         }
-        
+
         this.timerSeconds = 0;
         this.savePomodoroSettings();
         this.updateTimerDisplay();
@@ -443,43 +631,43 @@ class FocusToDoApp {
 
     timerFinished() {
         this.pauseTimer();
-        
+
         // Play notification sound if enabled
         if (this.pomodoroSettings.soundEnabled) {
             this.playNotificationSound();
         }
-        
+
         const currentMode = this.pomodoroSettings.currentMode;
-        
+
         if (currentMode === 'focus') {
             // Completed a focus session
             this.pomodoroSettings.completedPomodoros++;
             this.pomodoroSettings.totalFocusTime += this.pomodoroSettings.focusLength;
-            
+
             // Determine next mode
             const isLongBreakTime = this.pomodoroSettings.completedPomodoros % this.pomodoroSettings.longBreakAfter === 0;
-            const nextMode = this.pomodoroSettings.disableBreak ? 'focus' : 
-                           (isLongBreakTime ? 'longBreak' : 'shortBreak');
-            
-            this.showPomodoroNotification('Focus session completed!', 
+            const nextMode = this.pomodoroSettings.disableBreak ? 'focus' :
+                (isLongBreakTime ? 'longBreak' : 'shortBreak');
+
+            this.showPomodoroNotification('Focus session completed!',
                 `Great job! ${this.pomodoroSettings.disableBreak ? 'Ready for next session?' : 'Time for a break.'}`);
-            
+
             this.setTimerMode(nextMode);
-            
+
             if (this.pomodoroSettings.autoStartBreak && !this.pomodoroSettings.disableBreak) {
                 setTimeout(() => this.startTimer(), 2000);
             }
-            
+
         } else {
             // Completed a break session
             this.showPomodoroNotification('Break completed!', 'Ready to focus again?');
             this.setTimerMode('focus');
-            
+
             if (this.pomodoroSettings.autoStartNext) {
                 setTimeout(() => this.startTimer(), 2000);
             }
         }
-        
+
         this.savePomodoroSettings();
         this.updatePomodoroStats();
     }
@@ -509,12 +697,12 @@ class FocusToDoApp {
             'shortBreak': 'Short Break',
             'longBreak': 'Long Break'
         };
-        
+
         const sessionLabel = document.querySelector('.session-label');
         if (sessionLabel) {
             sessionLabel.textContent = modeLabels[this.pomodoroSettings.currentMode];
         }
-        
+
         // Update timer background color based on mode
         const timerContainer = document.getElementById('pomodoroTimer');
         if (timerContainer) {
@@ -527,7 +715,7 @@ class FocusToDoApp {
         if (sessionTime) {
             sessionTime.innerHTML = `${this.pomodoroSettings.totalFocusTime}<sub>m</sub>`;
         }
-        
+
         // Update completed pomodoros count somewhere in UI
         const completedCount = document.querySelector('.completed-pomodoros');
         if (completedCount) {
@@ -676,6 +864,16 @@ class FocusToDoApp {
         document.getElementById('settingsModal').style.display = 'flex';
         // Default to General section
         this.showSettingsSection('General');
+
+        // Setup theme selector
+        const themeSelector = document.getElementById('themeSelector');
+        if (themeSelector) {
+            themeSelector.value = this.theme;
+            themeSelector.addEventListener('change', (e) => {
+                this.changeTheme(e.target.value);
+            });
+        }
+
         // Sidebar menu click
         document.querySelectorAll('.settings-menu-item').forEach(item => {
             item.onclick = (e) => {
@@ -695,7 +893,7 @@ class FocusToDoApp {
         document.getElementById('settingsPomodoro').style.display = section === 'Pomodoro Timer' ? 'block' : 'none';
         document.getElementById('settingsAlarm').style.display = section === 'Alarm Sound' ? 'block' : 'none';
         document.getElementById('settingsAbout').style.display = section === 'About' ? 'block' : 'none';
-        
+
         // Populate Pomodoro settings when section is shown
         if (section === 'Pomodoro Timer') {
             this.populatePomodoroSettings();
@@ -705,7 +903,7 @@ class FocusToDoApp {
     populatePomodoroSettings() {
         const content = document.getElementById('pomodoroSettingsContent');
         content.innerHTML = this.generatePomodoroSettingsHTML();
-        
+
         // Update volume display when range changes
         const volumeRange = document.getElementById('soundVolume');
         const volumeDisplay = volumeRange.nextElementSibling;
@@ -725,7 +923,7 @@ class FocusToDoApp {
         const notification = document.createElement('div');
         notification.className = `notification ${type}`;
         notification.textContent = message;
-        
+
         // Style the notification
         notification.style.cssText = `
             position: fixed;
@@ -742,14 +940,14 @@ class FocusToDoApp {
             transform: translateX(100%);
             transition: transform 0.3s ease;
         `;
-        
+
         document.body.appendChild(notification);
-        
+
         // Animate in
         setTimeout(() => {
             notification.style.transform = 'translateX(0)';
         }, 100);
-        
+
         // Auto remove after 3 seconds
         setTimeout(() => {
             notification.style.transform = 'translateX(100%)';
@@ -869,7 +1067,7 @@ class FocusToDoApp {
         this.pomodoroSettings.sound.enabled = document.getElementById('soundEnabled').checked;
         this.pomodoroSettings.sound.volume = parseFloat(document.getElementById('soundVolume').value) / 100;
         this.pomodoroSettings.notifications = document.getElementById('notificationsEnabled').checked;
-        
+
         this.savePomodoroSettings();
         this.showNotification('Pomodoro settings saved successfully!');
     }
