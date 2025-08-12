@@ -16,10 +16,16 @@
     background: var(--bg-primary);
     border-radius: 16px;
     padding: 32px 24px 24px 24px;
-    min-width: 600px;
-    max-width: 700px;
+    width: 1200px;
+    max-width: 95vw;
+    height: 80vh;
+    max-height: 800px;
+    min-height: 700px;
     box-shadow: var(--shadow-hover);
     position: relative;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
 }
 
 .settings-close-btn {
@@ -42,12 +48,16 @@
 .settings-layout {
     display: flex;
     gap: 0;
+    flex: 1;
+    height: 100%;
+    overflow: hidden;
 }
 
 .settings-sidebar {
-    width: 180px;
+    width: 240px;
     border-right: 1px solid var(--border-color);
-    padding-right: 16px;
+    padding-right: 24px;
+    flex-shrink: 0;
 }
 
 .settings-menu {
@@ -72,11 +82,32 @@
 
 .settings-main {
     flex: 1;
-    padding-left: 24px;
+    padding-left: 28px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    height: 100%;
+    padding-right: 8px;
 }
 
 .settings-section {
     display: block;
+    width: 100%;
+    min-height: auto;
+    max-height: none;
+    padding: 28px;
+    background-color: var(--bg-secondary);
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+    box-sizing: border-box;
+}
+
+.settings-section h3 {
+    margin-bottom: 20px;
+    color: var(--text-primary);
+    font-size: 1.4rem;
+    font-weight: 600;
+    border-bottom: 2px solid var(--accent-color);
+    padding-bottom: 8px;
 }
 
 .settings-project-list {
@@ -103,9 +134,108 @@
 }
 
 .settings-project-list input[type="checkbox"] {
-    accent-color: var(--red-color);
-    width: 22px;
-    height: 22px;
+    width: 18px;
+    height: 18px;
+    accent-color: var(--accent-color);
+}
+
+/* About Section Styling */
+.about-content {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.app-info,
+.features-info,
+.contact-info {
+    background-color: var(--bg-tertiary);
+    padding: 16px;
+    border-radius: 8px;
+    border-left: 4px solid var(--accent-color);
+}
+
+.app-info h4,
+.features-info h4,
+.contact-info h4 {
+    color: var(--accent-color);
+    margin-bottom: 12px;
+    font-size: 1.1rem;
+}
+
+.features-info ul {
+    list-style: none;
+    padding: 0;
+}
+
+.features-info li {
+    padding: 4px 0;
+    color: var(--text-secondary);
+}
+
+.social-links {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.social-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--accent-color);
+    text-decoration: none;
+    padding: 8px 12px;
+    background-color: rgba(0, 122, 204, 0.1);
+    border-radius: 6px;
+    transition: all 0.2s ease;
+}
+
+.social-link:hover {
+    background-color: rgba(0, 122, 204, 0.2);
+    transform: translateX(4px);
+}
+
+/* Sound Settings Styling */
+.sound-settings {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.sound-option {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+    color: var(--text-secondary);
+}
+
+.sound-select {
+    width: 100%;
+    padding: 8px 12px;
+    background-color: var(--bg-tertiary);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    color: var(--text-primary);
+    margin-bottom: 12px;
+}
+
+.volume-slider {
+    width: 100%;
+    margin: 8px 0;
+}
+
+.volume-display {
+    color: var(--accent-color);
+    font-weight: 600;
+}
+
+.settings-project-list input[type="checkbox"],
+.sound-option input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    accent-color: var(--accent-color);
 }
 
 /* CSS Variables for Theme Management */
@@ -1628,7 +1758,7 @@ input {
 /* Pomodoro Settings Styles */
 .pomodoro-settings {
     max-width: 500px;
-    margin: 0 auto;
+    margin: 4 auto;
     padding: 20px;
 }
 
@@ -1833,4 +1963,20 @@ input {
     color: var(--text-muted);
     text-transform: uppercase;
     letter-spacing: 0.5px;
+}
+
+/* Settings Modal Responsive Design */
+@media (max-width: 1300px) {
+    .settings-modal-content {
+        width: 95vw;
+    }
+}
+
+@media (max-width: 768px) {
+    .settings-modal-content {
+        width: 100vw;
+        height: 100vh;
+        border-radius: 0;
+        padding: 20px;
+    }
 }
