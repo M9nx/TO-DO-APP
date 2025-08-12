@@ -318,7 +318,8 @@ input {
     min-height: calc(100vh - 60px - 140px);
     /* Account for top bar and footer */
     position: relative;
-    padding-left: 20px; /* Account for sidebar left margin */
+    padding-left: 20px;
+    /* Account for sidebar left margin */
 }
 
 /* Sidebar */
@@ -1200,7 +1201,8 @@ input {
     .app-container {
         flex-direction: column;
         min-height: auto;
-        padding-left: 0; /* Remove sidebar left padding on mobile */
+        padding-left: 0;
+        /* Remove sidebar left padding on mobile */
     }
 
     .sidebar {
@@ -1211,8 +1213,8 @@ input {
         border-top: 1px solid var(--border-color);
         margin-top: 20px;
         margin-bottom: 20px;
-        margin-left: 20px;
-        margin-right: 20px;
+        margin-left: 18px;
+        margin-right: 10px;
         border-radius: 12px;
     }
 
