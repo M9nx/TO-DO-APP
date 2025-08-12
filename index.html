@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Focus To-Do</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="logo.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
@@ -21,8 +20,8 @@
 
             </div>
             <div class="top-right">
-                <button class="icon-btn stats">📊</button>
-                <button class="icon-btn notifications">🔔</button>
+                <!-- <button class="icon-btn stats">📊</button>
+                <button class="icon-btn notifications">🔔</button> -->
                 <button class="icon-btn theme-toggle">🌙</button>
                 <button class="icon-btn settings">⚙️</button>
             </div>
@@ -169,52 +168,52 @@
                 <nav class="nav-menu">
                     <ul class="nav-list">
                         <li class="nav-item active" data-category="today">
-                            <span class="nav-icon">📅</span>
+                            <!-- <span class="nav-icon">📅</span> -->
                             <span class="nav-text">Today</span>
                             <span class="nav-count">0</span>
                         </li>
                         <li class="nav-item" data-category="overdue">
-                            <span class="nav-icon">⚠️</span>
+                            <!-- <span class="nav-icon">⚠️</span> -->
                             <span class="nav-text">Overdue</span>
                             <span class="nav-count">1</span>
                         </li>
                         <li class="nav-item" data-category="tomorrow">
-                            <span class="nav-icon">📆</span>
+                            <!-- <span class="nav-icon">📆</span> -->
                             <span class="nav-text">Tomorrow</span>
                             <span class="nav-count">0</span>
                         </li>
                         <li class="nav-item" data-category="thisweek">
-                            <span class="nav-icon">📋</span>
+                            <!-- <span class="nav-icon">📋</span> -->
                             <span class="nav-text">This Week</span>
                             <span class="nav-count">0</span>
                         </li>
                         <li class="nav-item" data-category="next7days">
-                            <span class="nav-icon">🗓️</span>
+                            <!-- <span class="nav-icon">🗓️</span> -->
                             <span class="nav-text">Next 7 Days</span>
                             <span class="nav-count">0</span>
                         </li>
                         <li class="nav-item" data-category="planned">
-                            <span class="nav-icon">📌</span>
+                            <!-- <span class="nav-icon">📌</span> -->
                             <span class="nav-text">Planned</span>
                             <span class="nav-count">1</span>
                         </li>
                         <li class="nav-item" data-category="all">
-                            <span class="nav-icon">📝</span>
+                            <!-- <span class="nav-icon">📝</span> -->
                             <span class="nav-text">All</span>
                             <span class="nav-count">1</span>
                         </li>
                         <li class="nav-item" data-category="someday">
-                            <span class="nav-icon">💭</span>
+                            <!-- <span class="nav-icon">💭</span> -->
                             <span class="nav-text">Someday</span>
                             <span class="nav-count">0</span>
                         </li>
                         <li class="nav-item" data-category="completed">
-                            <span class="nav-icon">✅</span>
+                            <!-- <span class="nav-icon">✅</span> -->
                             <span class="nav-text">Completed</span>
                             <span class="nav-count">0</span>
                         </li>
                         <li class="nav-item" data-category="tasks">
-                            <span class="nav-icon">📋</span>
+                            <!-- <span class="nav-icon">📋</span> -->
                             <span class="nav-text">Tasks</span>
                             <span class="nav-count">1</span>
                         </li>
@@ -234,8 +233,8 @@
                 <div class="content-header">
                     <h2 class="section-title">Today</h2>
                     <div class="view-controls">
-                        <button class="view-btn active">📋</button>
-                        <button class="view-btn">📊</button>
+                        <!-- <button class="view-btn active">📋</button>
+                        <button class="view-btn">📊</button> -->
                     </div>
                 </div>
 
@@ -433,19 +432,21 @@
 
                 <div class="timer-controls">
                     <button class="timer-control-btn continue-btn" id="modalContinueBtn">Continue</button>
-                    <button class="timer-control-btn stop-btn" id="modalStopBtn">Stop</button>
+                    <button class="timer-control-btn stop-btn" id="modalStopBtn"
+                        title="Stop timer and return to main interface">Stop</button>
                 </div>
 
                 <div class="timer-bottom-controls">
-                    <button class="bottom-control-btn" id="homeBtn">
+                    <button class="bottom-control-btn" id="homeBtn" title="Close timer and return to main interface">
                         <div class="control-icon">🏠</div>
                         <div class="control-label">Home</div>
                     </button>
-                    <button class="bottom-control-btn" id="fullscreenBtn">
+                    <button class="bottom-control-btn" id="fullscreenBtn" title="Toggle fullscreen mode">
                         <div class="control-icon">⛶</div>
                         <div class="control-label">Fullscreen</div>
                     </button>
-                    <button class="bottom-control-btn" id="timerModeBtn">
+                    <button class="bottom-control-btn" id="timerModeBtn"
+                        title="Change timer mode and return to main interface">
                         <div class="control-icon">⏱️</div>
                         <div class="control-label">Timer Mode</div>
                     </button>

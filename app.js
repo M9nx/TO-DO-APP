@@ -39,18 +39,22 @@ class FocusToDoApp {
     }
 
     init() {
+        console.log('Initializing FocusToDoApp...');
         this.setupEventListeners();
         this.applyTheme();
         this.updateThemeIcon();
         this.renderTasks();
         this.updateStats();
         this.updateCategoryCounts();
+        console.log('FocusToDoApp initialized successfully');
     }
 
     setupEventListeners() {
         // Theme toggle
         const themeToggle = document.querySelector('.theme-toggle');
-        themeToggle.addEventListener('click', () => this.toggleTheme());
+        if (themeToggle) {
+            themeToggle.addEventListener('click', () => this.toggleTheme());
+        }
 
         // Theme selector
         document.addEventListener('DOMContentLoaded', () => {
@@ -74,25 +78,48 @@ class FocusToDoApp {
 
         // Timer controls
         const timerBtn = document.getElementById('timerBtn');
-        timerBtn.addEventListener('click', () => this.toggleTimer());
+        if (timerBtn) {
+            timerBtn.addEventListener('click', () => this.toggleTimer());
+        }
 
         // Double click on timer to open fullscreen modal
         const pomodoroTimer = document.getElementById('pomodoroTimer');
-        pomodoroTimer.addEventListener('dblclick', () => this.openTimerModal());
+        if (pomodoroTimer) {
+            pomodoroTimer.addEventListener('dblclick', () => this.openTimerModal());
+        }
 
         // Completed tasks toggle
         const toggleCompleted = document.getElementById('toggleCompleted');
-        toggleCompleted.addEventListener('click', () => this.toggleCompletedTasks());
+        if (toggleCompleted) {
+            toggleCompleted.addEventListener('click', () => this.toggleCompletedTasks());
+        }
 
         // Add project button
         const addProjectBtn = document.querySelector('.add-project-btn');
-        addProjectBtn.addEventListener('click', () => this.addProject());
+        if (addProjectBtn) {
+            addProjectBtn.addEventListener('click', () => this.addProject());
+        }
 
-        // Settings and other buttons (placeholder functions)
-        document.querySelector('.settings').addEventListener('click', () => this.openSettings());
-        document.querySelector('.notifications').addEventListener('click', () => this.showNotifications());
-        document.querySelector('.stats').addEventListener('click', () => this.showDetailedStats());
-        document.querySelector('.star').addEventListener('click', () => this.showFavorites());
+        // Settings and other buttons (with null checks)
+        const settingsBtn = document.querySelector('.settings');
+        if (settingsBtn) {
+            settingsBtn.addEventListener('click', () => this.openSettings());
+        }
+
+        const notificationsBtn = document.querySelector('.notifications');
+        if (notificationsBtn) {
+            notificationsBtn.addEventListener('click', () => this.showNotifications());
+        }
+
+        const statsBtn = document.querySelector('.stats');
+        if (statsBtn) {
+            statsBtn.addEventListener('click', () => this.showDetailedStats());
+        }
+
+        const starBtn = document.querySelector('.star');
+        if (starBtn) {
+            starBtn.addEventListener('click', () => this.showFavorites());
+        }
 
         // Timer modal controls
         const timerCloseBtn = document.getElementById('timerCloseBtn');
@@ -103,13 +130,66 @@ class FocusToDoApp {
         const whiteNoiseBtn = document.getElementById('whiteNoiseBtn');
         const homeBtn = document.getElementById('homeBtn');
 
-        timerCloseBtn.addEventListener('click', () => this.closeTimerModal());
-        modalContinueBtn.addEventListener('click', () => this.toggleTimer());
-        modalStopBtn.addEventListener('click', () => this.stopTimer());
-        fullscreenBtn.addEventListener('click', () => this.toggleFullscreen());
-        timerModeBtn.addEventListener('click', () => this.changeTimerMode());
-        whiteNoiseBtn.addEventListener('click', () => this.toggleWhiteNoise());
-        homeBtn.addEventListener('click', () => this.closeTimerModal());
+        // Check if elements exist and add event listeners with error handling
+        if (timerCloseBtn) {
+            timerCloseBtn.addEventListener('click', () => {
+                console.log('Close button clicked');
+                this.closeTimerModal();
+            });
+        }
+
+        if (modalContinueBtn) {
+            modalContinueBtn.addEventListener('click', () => {
+                console.log('Continue button clicked');
+                this.toggleTimer();
+            });
+        }
+
+        if (modalStopBtn) {
+            modalStopBtn.addEventListener('click', () => {
+                console.log('Stop button clicked');
+                this.stopTimer();
+            });
+        }
+
+        if (fullscreenBtn) {
+            fullscreenBtn.addEventListener('click', () => {
+                console.log('Fullscreen button clicked');
+                this.toggleFullscreen();
+            });
+        }
+
+        if (timerModeBtn) {
+            timerModeBtn.addEventListener('click', () => {
+                console.log('Timer mode button clicked');
+                this.changeTimerMode();
+                this.closeTimerModal();
+            });
+        }
+
+        if (whiteNoiseBtn) {
+            whiteNoiseBtn.addEventListener('click', () => {
+                console.log('White noise button clicked');
+                this.toggleWhiteNoise();
+            });
+        }
+
+        if (homeBtn) {
+            homeBtn.addEventListener('click', () => {
+                console.log('Home button clicked');
+                this.closeTimerModal();
+            });
+        }
+
+        // Add keyboard support for closing timer modal
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                const modal = document.getElementById('timerModal');
+                if (modal && modal.classList.contains('active')) {
+                    this.closeTimerModal();
+                }
+            }
+        });
     }
 
     // Theme Management
@@ -804,8 +884,31 @@ class FocusToDoApp {
     }
 
     closeTimerModal() {
+        console.log('closeTimerModal called');
         const modal = document.getElementById('timerModal');
+        if (!modal) {
+            console.error('Timer modal element not found');
+            return;
+        }
+
+        console.log('Removing active class from modal');
         modal.classList.remove('active');
+
+        // Pause timer if it's running when modal is closed
+        if (this.isTimerRunning) {
+            console.log('Pausing timer');
+            this.pauseTimer();
+        }
+
+        // Reset any fullscreen mode
+        if (document.fullscreenElement) {
+            console.log('Exiting fullscreen');
+            document.exitFullscreen().catch(err => {
+                console.log('Error exiting fullscreen:', err);
+            });
+        }
+
+        console.log('Timer modal closed successfully');
     }
 
     stopTimer() {
@@ -815,22 +918,36 @@ class FocusToDoApp {
     }
 
     toggleFullscreen() {
-        // TODO: Implement fullscreen functionality
         if (!document.fullscreenElement) {
-            document.documentElement.requestFullscreen();
+            document.documentElement.requestFullscreen().catch(err => {
+                console.log('Error entering fullscreen:', err);
+            });
         } else {
-            document.exitFullscreen();
+            document.exitFullscreen().catch(err => {
+                console.log('Error exiting fullscreen:', err);
+            });
+            // Optionally close modal when exiting fullscreen
+            // this.closeTimerModal();
         }
     }
 
     changeTimerMode() {
-        // TODO: Implement timer mode switching (Pomodoro, Short Break, Long Break)
-        console.log('Changing timer mode');
+        // Cycle through timer modes: focus -> short break -> long break -> focus
+        const modes = ['focus', 'shortBreak', 'longBreak'];
+        const currentIndex = modes.indexOf(this.pomodoroSettings.currentMode);
+        const nextIndex = (currentIndex + 1) % modes.length;
+
+        this.setTimerMode(modes[nextIndex]);
+        this.updateTimerDisplay();
+        this.updatePomodoroDisplay();
+
+        console.log(`Timer mode changed to: ${this.pomodoroSettings.currentMode}`);
     }
 
     toggleWhiteNoise() {
-        // TODO: Implement white noise functionality
-        console.log('Toggling white noise');
+        // Simple white noise toggle (placeholder - could be expanded later)
+        console.log('White noise toggled');
+        // TODO: Implement actual white noise functionality
     }
 
     // Completed Tasks Toggle
@@ -1174,6 +1291,7 @@ class FocusToDoApp {
 
 // Initialize the application when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
+    console.log('DOM Content Loaded - Initializing app...');
     window.focusToDoApp = new FocusToDoApp();
 });
 
