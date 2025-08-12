@@ -17,37 +17,37 @@
 ## 🌟 Features
 
 ### 📋 **Task Management**
-- ✅ **Smart Categorization** - Organize tasks by Today, Tomorrow, This Week, Planned, Someday
-- 🎯 **Priority Levels** - Set Low, Medium, or High priority for tasks
-- 📅 **Due Date Tracking** - Set and track task deadlines
-- ⏱️ **Time Estimation** - Estimate task completion time (15 min to 4+ hours)
-- 📝 **Rich Descriptions** - Add detailed notes and descriptions to tasks
-- 🏷️ **Task Categories** - Automatic sorting into Today, Overdue, Completed sections
+-  **Smart Categorization** - Organize tasks by Today, Tomorrow, This Week, Planned, Someday
+-  **Priority Levels** - Set Low, Medium, or High priority for tasks
+-  **Due Date Tracking** - Set and track task deadlines
+-  **Time Estimation** - Estimate task completion time (15 min to 4+ hours)
+-  **Rich Descriptions** - Add detailed notes and descriptions to tasks
+-  **Task Categories** - Automatic sorting into Today, Overdue, Completed sections
 
 ### 🍅 **Pomodoro Timer Integration**
-- ⏰ **Customizable Sessions** - Focus sessions with break intervals
-- 📊 **Progress Tracking** - Track completed sessions and total focus time
-- 🔥 **Streak Counter** - Monitor your productivity streaks
-- 🎵 **White Noise Support** - Background sounds for better focus
-- 🔔 **Smart Notifications** - Audio alerts for session completion
-- 📱 **Fullscreen Mode** - Distraction-free timer interface
+-  **Customizable Sessions** - Focus sessions with break intervals
+-  **Progress Tracking** - Track completed sessions and total focus time
+-  **Streak Counter** - Monitor your productivity streaks
+-  **White Noise Support** - Background sounds for better focus
+-  **Smart Notifications** - Audio alerts for session completion
+-  **Fullscreen Mode** - Distraction-free timer interface
 
 ### 🎨 **Themes & Customization**
-- 🌙 **Multiple Themes** - Dark Red, Pure White, Ocean Blue, Matrix Green, Dark Yellow
-- 🌓 **Dark/Light Mode** - Seamless theme switching
-- ⚙️ **Advanced Settings** - Customize every aspect of your experience
-- 📱 **Responsive Design** - Perfect on desktop, tablet, and mobile
+-  **Multiple Themes** - Dark Red, Pure White, Ocean Blue, Matrix Green, Dark Yellow
+-  **Dark/Light Mode** - Seamless theme switching
+-  **Advanced Settings** - Customize every aspect of your experience
+-  **Responsive Design** - Perfect on desktop, tablet, and mobile
 
 ### 🔊 **Sound & Notifications**
-- 🔔 **Task Completion Sounds** - Audio feedback for completed tasks
-- 🎵 **Pomodoro Alerts** - Custom sounds for session endings
-- 🔇 **Volume Control** - Adjustable master volume
-- 🎼 **Sound Selection** - Choose from multiple notification sounds
+-  **Task Completion Sounds** - Audio feedback for completed tasks
+-  **Pomodoro Alerts** - Custom sounds for session endings
+-  **Volume Control** - Adjustable master volume
+-  **Sound Selection** - Choose from multiple notification sounds
 
 ### 💾 **Data Persistence**
-- 🏠 **Local Storage** - Your data stays with you
-- 📈 **Statistics Tracking** - Monitor your productivity metrics
-- 🔄 **Auto-Save** - Never lose your progress
+-  **Local Storage** - Your data stays with you
+-  **Statistics Tracking** - Monitor your productivity metrics
+-  **Auto-Save** - Never lose your progress
 
 ## 🚀 Quick Start
 
@@ -70,7 +70,7 @@ Simply visit the [live demo](https://m9nx.github.io/TO-DO-APP) and start organiz
    python -m http.server 8000  # For local server
    ```
 
-3. **Start organizing!** 🎉
+3. **Start organizing!** 
 
 ## 📖 How to Use
 
@@ -117,10 +117,10 @@ TO-DO-APP/
 ## 📊 Statistics & Metrics
 
 The app tracks your productivity with detailed statistics:
-- ⏱️ **Total Focus Time** - Time spent in productive work
-- 📈 **Completed Tasks** - Tasks finished today/overall
-- 🔥 **Current Streak** - Consecutive productive days
-- 📅 **Daily Progress** - Tasks completed vs. planned
+-  **Total Focus Time** - Time spent in productive work
+-  **Completed Tasks** - Tasks finished today/overall
+-  **Current Streak** - Consecutive productive days
+-  **Daily Progress** - Tasks completed vs. planned
 
 ## 🎯 Use Cases
 
@@ -132,12 +132,12 @@ The app tracks your productivity with detailed statistics:
 
 ## 🌟 Why Focus To-Do?
 
-- **🚀 Zero Setup** - Works immediately in any modern browser
-- **🔒 Privacy First** - All data stored locally on your device
-- **⚡ Lightning Fast** - Optimized performance with smooth animations
-- **🎨 Beautiful Design** - Modern, clean interface that's joy to use
-- **🧘 Focus-Oriented** - Built-in Pomodoro technique for better productivity
-- **📱 Always Available** - Works offline once loaded
+- ** Zero Setup** - Works immediately in any modern browser
+- **Privacy First** - All data stored locally on your device
+- **Lightning Fast** - Optimized performance with smooth animations
+- **Beautiful Design** - Modern, clean interface that's joy to use
+- **Focus-Oriented** - Built-in Pomodoro technique for better productivity
+- **Always Available** - Works offline once loaded
 
 ## 🤝 Contributing
 
@@ -157,9 +157,9 @@ Distributed under the MIT License. See `LICENSE` for more information.
 
 **Mounir Elsrogy (M9nx)**
 
-- 🐙 GitHub: [@M9nx](https://github.com/M9nx)
-- 💼 LinkedIn: [Mounir Elsrogy](https://www.linkedin.com/in/mounir-elsrogy-5a6406327)
-- 🐦 Twitter: [@__m9nx](https://twitter.com/__m9nx)
+-  GitHub: [@M9nx](https://github.com/M9nx)
+-  LinkedIn: [Mounir Elsrogy](https://www.linkedin.com/in/mounir-elsrogy-5a6406327)
+-  Twitter: [@__m9nx](https://twitter.com/__m9nx)
 
 ## 🙏 Acknowledgments
 
@@ -171,7 +171,7 @@ Distributed under the MIT License. See `LICENSE` for more information.
 
 <div align="center">
 
-**⭐ Star this repository if it helped you stay organized and productive! ⭐**
+**Star this repository if it helped you stay organized and productive!**
 
 Made with ❤️ by [M9nx](https://github.com/M9nx)
 
