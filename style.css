@@ -355,6 +355,32 @@
     margin-top: 12px;
 }
 
+/* Logo Text Styling */
+.logo-text {
+    font-size: 24px;
+    font-weight: 900;
+    letter-spacing: 2px;
+    padding: 8px 12px;
+    border-radius: 8px;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+/* Default Dark Theme Logo */
+.dark-theme .logo-text {
+    background: linear-gradient(45deg, #ff0000, #ff3333);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+}
+
+.dark-theme .logo-text:hover {
+    transform: scale(1.05);
+    text-shadow: 0 0 15px rgba(255, 0, 0, 0.8);
+}
+
 /* Pure White Light Theme */
 .light-theme {
     --bg-primary: #ffffff;
@@ -505,6 +531,65 @@
     --gradient-warning: linear-gradient(135deg, #ffcc00 0%, #ffdd33 100%);
     --gradient-danger: linear-gradient(135deg, #ff4444 0%, #ff2222 100%);
     --gradient-dark: linear-gradient(135deg, #1a1a0d 0%, #2d2d1a 100%);
+}
+
+/* Theme-specific Logo Text Styles */
+
+/* Light Theme Logo */
+.light-theme .logo-text {
+    background: linear-gradient(45deg, #ff4444, #ff6666);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-shadow: 0 2px 4px rgba(255, 68, 68, 0.3);
+}
+
+.light-theme .logo-text:hover {
+    transform: scale(1.05);
+    text-shadow: 0 2px 8px rgba(255, 68, 68, 0.5);
+}
+
+/* Ocean Theme Logo */
+.ocean-theme .logo-text {
+    background: linear-gradient(45deg, #4a9eff, #6bb3ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-shadow: 0 0 10px rgba(74, 158, 255, 0.5);
+}
+
+.ocean-theme .logo-text:hover {
+    transform: scale(1.05);
+    text-shadow: 0 0 15px rgba(74, 158, 255, 0.8);
+}
+
+/* Matrix Theme Logo */
+.matrix-theme .logo-text {
+    background: linear-gradient(45deg, #00ff00, #33ff33);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+    font-family: 'Courier New', Consolas, 'Lucida Console', monospace;
+}
+
+.matrix-theme .logo-text:hover {
+    transform: scale(1.05);
+    text-shadow: 0 0 15px rgba(0, 255, 0, 0.8);
+}
+
+/* Yellow Theme Logo */
+.yellow-theme .logo-text {
+    background: linear-gradient(45deg, #ffcc00, #ffdd33);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-shadow: 0 0 10px rgba(255, 204, 0, 0.5);
+}
+
+.yellow-theme .logo-text:hover {
+    transform: scale(1.05);
+    text-shadow: 0 0 15px rgba(255, 204, 0, 0.8);
 }
 
 /* Matrix Theme Special Effects */
