@@ -64,9 +64,6 @@
                                 <li><span>Tomorrow</span><input type="checkbox" checked></li>
                                 <li><span>This Week</span><input type="checkbox" checked></li>
                                 <li><span>Next 7 Days</span><input type="checkbox" checked></li>
-                                <li><span>High Priority</span><input type="checkbox" checked></li>
-                                <li><span>Medium Priority</span><input type="checkbox" checked></li>
-                                <li><span>Low Priority</span><input type="checkbox" checked></li>
                                 <li><span>Planned</span><input type="checkbox" checked></li>
                                 <li><span>All</span><input type="checkbox" checked></li>
                                 <li><span>Someday</span><input type="checkbox" checked></li>
@@ -194,21 +191,6 @@
                         <li class="nav-item" data-category="next7days">
                             <span class="nav-icon">🗓️</span>
                             <span class="nav-text">Next 7 Days</span>
-                            <span class="nav-count">0</span>
-                        </li>
-                        <li class="nav-item" data-category="high">
-                            <span class="nav-icon priority-high">🔴</span>
-                            <span class="nav-text">High Priority</span>
-                            <span class="nav-count">0</span>
-                        </li>
-                        <li class="nav-item" data-category="medium">
-                            <span class="nav-icon priority-medium">🟡</span>
-                            <span class="nav-text">Medium Priority</span>
-                            <span class="nav-count">0</span>
-                        </li>
-                        <li class="nav-item" data-category="low">
-                            <span class="nav-icon priority-low">🟢</span>
-                            <span class="nav-text">Low Priority</span>
                             <span class="nav-count">0</span>
                         </li>
                         <li class="nav-item" data-category="planned">
@@ -412,11 +394,6 @@
                         <div class="session-label">Focus Time of Today</div>
                         <div class="session-time">0<sub>m</sub></div>
                     </div>
-                    <div class="timer-task-info">
-                        <div class="task-label">Today</div>
-                        <div class="task-icon">☀️</div>
-                        <div class="task-status">No Task</div>
-                    </div>
                 </div>
 
                 <!-- Pomodoro Mode Indicator -->
@@ -457,19 +434,6 @@
                 <div class="timer-controls">
                     <button class="timer-control-btn continue-btn" id="modalContinueBtn">Continue</button>
                     <button class="timer-control-btn stop-btn" id="modalStopBtn">Stop</button>
-                </div>
-
-                <div class="timer-sidebar">
-                    <div class="focus-records">
-                        <h3>Today's Focus Time Records</h3>
-                        <div class="time-chart">
-                            <div class="time-marker" style="top: 20%;">18:00</div>
-                            <div class="time-marker" style="top: 40%;">19:00</div>
-                            <div class="time-marker" style="top: 60%;">20:00</div>
-                            <div class="time-marker" style="top: 80%;">21:00</div>
-                            <div class="chart-line"></div>
-                        </div>
-                    </div>
                 </div>
 
                 <div class="timer-bottom-controls">
