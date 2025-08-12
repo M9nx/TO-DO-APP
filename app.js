@@ -112,7 +112,7 @@ class FocusToDoApp {
 
     // Theme Management
     toggleTheme() {
-        const themes = ['dark', 'light', 'ocean'];
+        const themes = ['dark', 'light', 'ocean', 'matrix'];
         const currentIndex = themes.indexOf(this.theme);
         const nextIndex = (currentIndex + 1) % themes.length;
         this.theme = themes[nextIndex];
@@ -131,7 +131,8 @@ class FocusToDoApp {
         const icons = {
             'dark': '🌙',
             'light': '☀️',
-            'ocean': '🌊'
+            'ocean': '🌊',
+            'matrix': '💚'
         };
         themeToggle.textContent = icons[this.theme];
     }
