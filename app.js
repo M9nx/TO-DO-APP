@@ -10,6 +10,30 @@ class FocusToDoApp {
         this.timerMinutes = 25;
         this.timerSeconds = 0;
         this.theme = localStorage.getItem('focusTheme') || 'dark';
+        
+        // Enhanced Pomodoro Settings
+        this.pomodoroSettings = {
+            focusLength: 25,
+            shortBreakLength: 5,
+            longBreakLength: 15,
+            sessionsUntilLongBreak: 4,
+            autoStartBreaks: false,
+            autoStartFocus: false,
+            sound: {
+                enabled: true,
+                volume: 0.5,
+                focusEnd: 'bell',
+                breakEnd: 'chime'
+            },
+            notifications: true,
+            currentMode: 'focus',
+            completedSessions: 0,
+            totalFocusTime: 0,
+            sessionHistory: []
+        };
+        
+        // Load saved Pomodoro settings
+        this.loadPomodoroSettings();
 
         this.init();
     }
@@ -354,7 +378,7 @@ class FocusToDoApp {
         });
     }
 
-    // Pomodoro Timer
+    // Enhanced Pomodoro Timer
     toggleTimer() {
         if (this.isTimerRunning) {
             this.pauseTimer();
@@ -371,7 +395,6 @@ class FocusToDoApp {
         this.timerInterval = setInterval(() => {
             if (this.timerSeconds === 0) {
                 if (this.timerMinutes === 0) {
-                    // Timer finished
                     this.timerFinished();
                     return;
                 }
@@ -393,16 +416,123 @@ class FocusToDoApp {
 
     resetTimer() {
         this.pauseTimer();
-        this.timerMinutes = 25;
-        this.timerSeconds = 0;
+        this.setTimerMode(this.pomodoroSettings.currentMode);
         this.updateTimerDisplay();
+    }
+
+    setTimerMode(mode) {
+        this.pomodoroSettings.currentMode = mode;
+        
+        switch (mode) {
+            case 'focus':
+                this.timerMinutes = this.pomodoroSettings.focusLength;
+                break;
+            case 'shortBreak':
+                this.timerMinutes = this.pomodoroSettings.shortBreakLength;
+                break;
+            case 'longBreak':
+                this.timerMinutes = this.pomodoroSettings.longBreakLength;
+                break;
+        }
+        
+        this.timerSeconds = 0;
+        this.savePomodoroSettings();
+        this.updateTimerDisplay();
+        this.updateTimerModeUI();
     }
 
     timerFinished() {
         this.pauseTimer();
-        // TODO: Play notification sound, show notification, etc.
-        alert('Pomodoro session completed! Time for a break.');
-        this.resetTimer();
+        
+        // Play notification sound if enabled
+        if (this.pomodoroSettings.soundEnabled) {
+            this.playNotificationSound();
+        }
+        
+        const currentMode = this.pomodoroSettings.currentMode;
+        
+        if (currentMode === 'focus') {
+            // Completed a focus session
+            this.pomodoroSettings.completedPomodoros++;
+            this.pomodoroSettings.totalFocusTime += this.pomodoroSettings.focusLength;
+            
+            // Determine next mode
+            const isLongBreakTime = this.pomodoroSettings.completedPomodoros % this.pomodoroSettings.longBreakAfter === 0;
+            const nextMode = this.pomodoroSettings.disableBreak ? 'focus' : 
+                           (isLongBreakTime ? 'longBreak' : 'shortBreak');
+            
+            this.showPomodoroNotification('Focus session completed!', 
+                `Great job! ${this.pomodoroSettings.disableBreak ? 'Ready for next session?' : 'Time for a break.'}`);
+            
+            this.setTimerMode(nextMode);
+            
+            if (this.pomodoroSettings.autoStartBreak && !this.pomodoroSettings.disableBreak) {
+                setTimeout(() => this.startTimer(), 2000);
+            }
+            
+        } else {
+            // Completed a break session
+            this.showPomodoroNotification('Break completed!', 'Ready to focus again?');
+            this.setTimerMode('focus');
+            
+            if (this.pomodoroSettings.autoStartNext) {
+                setTimeout(() => this.startTimer(), 2000);
+            }
+        }
+        
+        this.savePomodoroSettings();
+        this.updatePomodoroStats();
+    }
+
+    playNotificationSound() {
+        // Create audio notification
+        const audio = new Audio('data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBTiS2++7dCEFKXTB8OeLOAcZZ73w5J9KDAxWq+DuvmchBTqP1fLNeSsFJHfI8N2QQAoUXrTp66hVFApGn+DyvmwhBTiS2++7dCEFKXTB8OeLOAcZZ73w5J9KDAxWq+DuvmchBTqP1fLNeSsFJHfI8N2QQAoUXrTp66hVFApGn+DyvmwhBTiS2++7dCEFKXTB8OeLOAcZZ73w5J9KDAxWq+DuvmchBTqP1fLNeSsFJHfI8N2QQAoUXrTp66hVFApGn+DyvmwhBTiS2++7dCEFKXTB8OeLOAcZZ73w5J9KDAxWq+DuvmchBTqP1fLNeSsFJHfI8N2QQAoUXrTp66hVFApGn+DyvmwhBTiS2++7dCEFKXTB8OeLOAcZZ73w5J9KDAxWq+DuvmchBTqP1fLNeSsFJHfI8N2QQAoUXrTp66hVFApGn+DyvmwhBTiS2++7dCEFKXTB8OeLOAcZZ73w5J9KDAxWq+DuvmchBTqP1fLNeSsFJHfI8N2QQAoUXrTp66hVFApGn+DyvmwhBTiS2++7dCEFKXTB8OeLOAcZZ73w5J9KDAxWq+DuvmchBTqP1fLNeSsFJHfI8N2QQAoUXrTp66hVFApGn+DyvmwhBTiS2++7dCEFKXTB8OeLOAcZZ73w5J9KDAxWq+DuvmchBTqP1fLNeSsFJHfI8N2QQAoUXrTp66hVFApGn+DyvmwhBTiS2++7dCEFKXTB8OeLOAcZZ73w5J9KDAxWq+DuvmchBTqP1fLNeSsFJHfI8N2QQAoUXrTp66hVFApGn+DyvmwhBTiS2++7dCEFKXTB8OeLOAcZZ73w5J9KDAxWq+DuvmchBTqP1fLNeSsFJHfI8N2QQAoUXrTp66hVFApGn+DyvmwhBTiS2++7dCEFKXTB8OeLOAcZZ73w5J9KDAxWq+DuvmchBTqP1fLNeSsFJHfI8N2QQAoUXrTp66hVFApGn+DyvmwhBTiS2++7dCEFKXTB8OeLOAcZZ73w5J9KDAxWq+DuvmchBTqP1fLNeSsFJHfI8N2QQAoUXrTp66hVFApGn+DyvmwhBTiS2++7dCEFKXTB8OeLOAcZZ73w5J9KDAxWq+DuvmchBTqP1fLNeSsFJHfI8N2QQAoUXrTp66hVFApGn+DyvmwhBTiS2++7dCEFKXTB8OeLOAcZZ73w5J9KDAxWq+DuvmchBTqP1fLNeSsFJHfI8N2QQAoUXrTp66hVFApGn+DyvmwhBTiS2++7dCEFKXTB8OeLOAcZZ73w5J9KDAxWq+DuvmchBTqP1fLNeSsFJHfI8N2QQAoUXrTp66hVFApGn+DyvmwhBTiS2++7dCEFKXTB8OeLOAcZZ73w5J9KDAxWq+DuvmchBTqP1fLNeSsFJHfI8N2QQAoUXrTp66hVFApGn+DyvmwhBTiS2++7dCEFKXTB8OeLOAcZZ73w5J9KDAxWq+DuvmchBTqP1fLNeSsFJHfI8N2QQAoUXrTp66hVFApGn+DyvmwhBTiS2++7dCEF=');
+        audio.play().catch(e => console.log('Audio notification failed:', e));
+    }
+
+    showPomodoroNotification(title, message) {
+        // Show browser notification if permission granted
+        if ('Notification' in window && Notification.permission === 'granted') {
+            new Notification(title, {
+                body: message,
+                icon: 'img/logo.png'
+            });
+        } else {
+            // Fallback to alert
+            alert(`${title}\n${message}`);
+        }
+    }
+
+    updateTimerModeUI() {
+        const modeLabels = {
+            'focus': 'Focus Time',
+            'shortBreak': 'Short Break',
+            'longBreak': 'Long Break'
+        };
+        
+        const sessionLabel = document.querySelector('.session-label');
+        if (sessionLabel) {
+            sessionLabel.textContent = modeLabels[this.pomodoroSettings.currentMode];
+        }
+        
+        // Update timer background color based on mode
+        const timerContainer = document.getElementById('pomodoroTimer');
+        if (timerContainer) {
+            timerContainer.className = `pomodoro-timer mode-${this.pomodoroSettings.currentMode}`;
+        }
+    }
+
+    updatePomodoroStats() {
+        const sessionTime = document.querySelector('.session-time');
+        if (sessionTime) {
+            sessionTime.innerHTML = `${this.pomodoroSettings.totalFocusTime}<sub>m</sub>`;
+        }
+        
+        // Update completed pomodoros count somewhere in UI
+        const completedCount = document.querySelector('.completed-pomodoros');
+        if (completedCount) {
+            completedCount.textContent = this.pomodoroSettings.completedPomodoros;
+        }
     }
 
     updateTimerDisplay() {
@@ -444,6 +574,41 @@ class FocusToDoApp {
         const modal = document.getElementById('timerModal');
         modal.classList.add('active');
         this.updateCircularProgress();
+        this.updatePomodoroDisplay();
+    }
+
+    updatePomodoroDisplay() {
+        // Update mode indicator
+        const modeIndicator = document.getElementById('timerModeIndicator');
+        if (modeIndicator) {
+            modeIndicator.className = `timer-mode-indicator ${this.pomodoroSettings.currentMode}`;
+            switch (this.pomodoroSettings.currentMode) {
+                case 'focus':
+                    modeIndicator.textContent = 'Focus Session';
+                    break;
+                case 'shortBreak':
+                    modeIndicator.textContent = 'Short Break';
+                    break;
+                case 'longBreak':
+                    modeIndicator.textContent = 'Long Break';
+                    break;
+            }
+        }
+
+        // Update stats
+        const completedSessionsEl = document.getElementById('completedSessions');
+        const totalFocusTimeEl = document.getElementById('totalFocusTime');
+        const currentStreakEl = document.getElementById('currentStreak');
+
+        if (completedSessionsEl) {
+            completedSessionsEl.textContent = this.pomodoroSettings.completedSessions || 0;
+        }
+        if (totalFocusTimeEl) {
+            totalFocusTimeEl.textContent = `${this.pomodoroSettings.totalFocusTime || 0}m`;
+        }
+        if (currentStreakEl) {
+            currentStreakEl.textContent = this.pomodoroSettings.completedSessions % this.pomodoroSettings.sessionsUntilLongBreak || 0;
+        }
     }
 
     closeTimerModal() {
@@ -530,12 +695,70 @@ class FocusToDoApp {
         document.getElementById('settingsPomodoro').style.display = section === 'Pomodoro Timer' ? 'block' : 'none';
         document.getElementById('settingsAlarm').style.display = section === 'Alarm Sound' ? 'block' : 'none';
         document.getElementById('settingsAbout').style.display = section === 'About' ? 'block' : 'none';
+        
+        // Populate Pomodoro settings when section is shown
+        if (section === 'Pomodoro Timer') {
+            this.populatePomodoroSettings();
+        }
+    }
+
+    populatePomodoroSettings() {
+        const content = document.getElementById('pomodoroSettingsContent');
+        content.innerHTML = this.generatePomodoroSettingsHTML();
+        
+        // Update volume display when range changes
+        const volumeRange = document.getElementById('soundVolume');
+        const volumeDisplay = volumeRange.nextElementSibling;
+        volumeRange.addEventListener('input', (e) => {
+            volumeDisplay.textContent = `${e.target.value}%`;
+        });
     }
 
     showNotifications() {
         // TODO: Implement notifications panel
         // Should show recent activities, reminders, etc.
         console.log('Showing notifications');
+    }
+
+    showNotification(message, type = 'success') {
+        // Create notification element
+        const notification = document.createElement('div');
+        notification.className = `notification ${type}`;
+        notification.textContent = message;
+        
+        // Style the notification
+        notification.style.cssText = `
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: ${type === 'error' ? '#ef4444' : '#10b981'};
+            color: white;
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            z-index: 10000;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            transform: translateX(100%);
+            transition: transform 0.3s ease;
+        `;
+        
+        document.body.appendChild(notification);
+        
+        // Animate in
+        setTimeout(() => {
+            notification.style.transform = 'translateX(0)';
+        }, 100);
+        
+        // Auto remove after 3 seconds
+        setTimeout(() => {
+            notification.style.transform = 'translateX(100%)';
+            setTimeout(() => {
+                if (notification.parentNode) {
+                    notification.parentNode.removeChild(notification);
+                }
+            }, 300);
+        }, 3000);
     }
 
     showDetailedStats() {
@@ -552,6 +775,163 @@ class FocusToDoApp {
     // Data Persistence
     saveTasks() {
         localStorage.setItem('focusTasks', JSON.stringify(this.tasks));
+    }
+
+    // Pomodoro Settings Management
+    savePomodoroSettings() {
+        localStorage.setItem('pomodoroSettings', JSON.stringify(this.pomodoroSettings));
+    }
+
+    loadPomodoroSettings() {
+        const savedSettings = localStorage.getItem('pomodoroSettings');
+        if (savedSettings) {
+            this.pomodoroSettings = { ...this.pomodoroSettings, ...JSON.parse(savedSettings) };
+        }
+    }
+
+    generatePomodoroSettingsHTML() {
+        return `
+            <div class="pomodoro-settings">
+                <h3>Pomodoro Settings</h3>
+                
+                <div class="setting-group">
+                    <label>Focus Time (minutes):</label>
+                    <input type="number" id="focusLength" min="1" max="60" value="${this.pomodoroSettings.focusLength}">
+                </div>
+                
+                <div class="setting-group">
+                    <label>Short Break (minutes):</label>
+                    <input type="number" id="shortBreakLength" min="1" max="30" value="${this.pomodoroSettings.shortBreakLength}">
+                </div>
+                
+                <div class="setting-group">
+                    <label>Long Break (minutes):</label>
+                    <input type="number" id="longBreakLength" min="1" max="60" value="${this.pomodoroSettings.longBreakLength}">
+                </div>
+                
+                <div class="setting-group">
+                    <label>Sessions until Long Break:</label>
+                    <input type="number" id="sessionsUntilLongBreak" min="2" max="8" value="${this.pomodoroSettings.sessionsUntilLongBreak}">
+                </div>
+                
+                <div class="setting-group">
+                    <label>
+                        <input type="checkbox" id="autoStartBreaks" ${this.pomodoroSettings.autoStartBreaks ? 'checked' : ''}>
+                        Auto-start breaks
+                    </label>
+                </div>
+                
+                <div class="setting-group">
+                    <label>
+                        <input type="checkbox" id="autoStartFocus" ${this.pomodoroSettings.autoStartFocus ? 'checked' : ''}>
+                        Auto-start focus sessions
+                    </label>
+                </div>
+                
+                <div class="setting-group">
+                    <label>
+                        <input type="checkbox" id="soundEnabled" ${this.pomodoroSettings.sound.enabled ? 'checked' : ''}>
+                        Enable sound notifications
+                    </label>
+                </div>
+                
+                <div class="setting-group">
+                    <label>Sound Volume:</label>
+                    <input type="range" id="soundVolume" min="0" max="100" value="${this.pomodoroSettings.sound.volume * 100}">
+                    <span>${Math.round(this.pomodoroSettings.sound.volume * 100)}%</span>
+                </div>
+                
+                <div class="setting-group">
+                    <label>
+                        <input type="checkbox" id="notificationsEnabled" ${this.pomodoroSettings.notifications ? 'checked' : ''}>
+                        Enable browser notifications
+                    </label>
+                </div>
+                
+                <div class="setting-actions">
+                    <button onclick="app.savePomodoroSettingsFromForm()">Save Settings</button>
+                    <button onclick="app.resetPomodoroSettings()">Reset to Default</button>
+                    <button onclick="app.exportPomodoroSettings()">Export Settings</button>
+                    <input type="file" id="importSettings" accept=".json" style="display: none;" onchange="app.importPomodoroSettings(event)">
+                    <button onclick="document.getElementById('importSettings').click()">Import Settings</button>
+                </div>
+            </div>
+        `;
+    }
+
+    savePomodoroSettingsFromForm() {
+        this.pomodoroSettings.focusLength = parseInt(document.getElementById('focusLength').value);
+        this.pomodoroSettings.shortBreakLength = parseInt(document.getElementById('shortBreakLength').value);
+        this.pomodoroSettings.longBreakLength = parseInt(document.getElementById('longBreakLength').value);
+        this.pomodoroSettings.sessionsUntilLongBreak = parseInt(document.getElementById('sessionsUntilLongBreak').value);
+        this.pomodoroSettings.autoStartBreaks = document.getElementById('autoStartBreaks').checked;
+        this.pomodoroSettings.autoStartFocus = document.getElementById('autoStartFocus').checked;
+        this.pomodoroSettings.sound.enabled = document.getElementById('soundEnabled').checked;
+        this.pomodoroSettings.sound.volume = parseFloat(document.getElementById('soundVolume').value) / 100;
+        this.pomodoroSettings.notifications = document.getElementById('notificationsEnabled').checked;
+        
+        this.savePomodoroSettings();
+        this.showNotification('Pomodoro settings saved successfully!');
+    }
+
+    resetPomodoroSettings() {
+        this.pomodoroSettings = {
+            focusLength: 25,
+            shortBreakLength: 5,
+            longBreakLength: 15,
+            sessionsUntilLongBreak: 4,
+            autoStartBreaks: false,
+            autoStartFocus: false,
+            sound: {
+                enabled: true,
+                volume: 0.5,
+                focusEnd: 'bell',
+                breakEnd: 'chime'
+            },
+            notifications: true
+        };
+        this.savePomodoroSettings();
+        this.showNotification('Pomodoro settings reset to default!');
+        // Refresh the settings display if it's open
+        const settingsContainer = document.querySelector('.pomodoro-settings');
+        if (settingsContainer) {
+            settingsContainer.outerHTML = this.generatePomodoroSettingsHTML();
+        }
+    }
+
+    exportPomodoroSettings() {
+        const dataStr = JSON.stringify(this.pomodoroSettings, null, 2);
+        const dataBlob = new Blob([dataStr], { type: 'application/json' });
+        const url = URL.createObjectURL(dataBlob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = 'pomodoro-settings.json';
+        link.click();
+        URL.revokeObjectURL(url);
+        this.showNotification('Pomodoro settings exported successfully!');
+    }
+
+    importPomodoroSettings(event) {
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                try {
+                    const importedSettings = JSON.parse(e.target.result);
+                    this.pomodoroSettings = { ...this.pomodoroSettings, ...importedSettings };
+                    this.savePomodoroSettings();
+                    this.showNotification('Pomodoro settings imported successfully!');
+                    // Refresh the settings display if it's open
+                    const settingsContainer = document.querySelector('.pomodoro-settings');
+                    if (settingsContainer) {
+                        settingsContainer.outerHTML = this.generatePomodoroSettingsHTML();
+                    }
+                } catch (error) {
+                    this.showNotification('Error importing settings. Please check the file format.', 'error');
+                }
+            };
+            reader.readAsText(file);
+        }
     }
 
     // Export/Import functionality (bonus features to implement)
