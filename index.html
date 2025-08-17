@@ -6,7 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Focus To-Do</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="icons.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 
 <body class="dark-theme">
@@ -20,25 +21,25 @@
 
             </div>
             <div class="top-right">
-                <!-- <button class="icon-btn stats">📊</button>
-                <button class="icon-btn notifications">🔔</button> -->
-                <button class="icon-btn theme-toggle">🌙</button>
-                <button class="icon-btn settings">⚙️</button>
+                <!-- <button class="icon-btn stats"><i class="icon-real stats-icon"></i></button>
+                <button class="icon-btn notifications"><i class="icon-real notifications-icon"></i></button> -->
+                <button class="icon-btn theme-toggle"><i class="icon-real theme-toggle-icon"></i></button>
+                <button class="icon-btn settings"><i class="icon-real settings-icon"></i></button>
             </div>
         </div>
 
         <!-- Settings Modal -->
         <div class="settings-modal" id="settingsModal" style="display:none;">
             <div class="settings-modal-content">
-                <button class="settings-close-btn" id="settingsCloseBtn">✕</button>
+                <button class="settings-close-btn" id="settingsCloseBtn"><i class="icon-real close-icon"></i></button>
                 <h2 class="settings-title">Settings</h2>
                 <div class="settings-layout">
                     <div class="settings-sidebar">
                         <ul class="settings-menu">
-                            <li class="settings-menu-item active">General</li>
-                            <li class="settings-menu-item">Pomodoro Timer</li>
-                            <li class="settings-menu-item">Alarm Sound</li>
-                            <li class="settings-menu-item">About</li>
+                            <li class="settings-menu-item active"><i class="icon-real settings-general"></i> General</li>
+                            <li class="settings-menu-item"><i class="icon-real settings-pomodoro"></i> Pomodoro Timer</li>
+                            <li class="settings-menu-item"><i class="icon-real settings-alarm"></i> Alarm Sound</li>
+                            <li class="settings-menu-item"><i class="icon-real settings-about"></i> About</li>
                         </ul>
                     </div>
                     <div class="settings-main">
@@ -131,12 +132,12 @@
                                 <div class="features-info">
                                     <h4>Features</h4>
                                     <ul>
-                                        <li>✅ Task Management with Categories</li>
-                                        <li>🍅 Pomodoro Timer Integration</li>
-                                        <li>📊 Progress Tracking</li>
-                                        <li>🔔 Sound Notifications</li>
-                                        <li>🌙 Dark/Light Theme Support</li>
-                                        <li>💾 Local Storage Persistence</li>
+                                        <li><i class="icon-real task-complete"></i> Task Management with Categories</li>
+                                        <li><i class="icon-real settings-pomodoro"></i> Pomodoro Timer Integration</li>
+                                        <li><i class="icon-real stats-icon"></i> Progress Tracking</li>
+                                        <li><i class="icon-real notifications-icon"></i> Sound Notifications</li>
+                                        <li><i class="icon-real theme-toggle-icon"></i> Dark/Light Theme Support</li>
+                                        <li><i class="icon-real save-icon"></i> Local Storage Persistence</li>
                                     </ul>
                                 </div>
 
@@ -145,14 +146,14 @@
                                     <div class="social-links">
                                         <a href="https://github.com/M9nx/Focus-To-Do" target="_blank"
                                             class="social-link">
-                                            <span>📱</span> GitHub Repository
+                                            <i class="icon-real social-github"></i> GitHub Repository
                                         </a>
                                         <a href="https://www.linkedin.com/in/mounir-elsrogy-5a6406327" target="_blank"
                                             class="social-link">
-                                            <span>💼</span> LinkedIn Profile
+                                            <i class="icon-real social-linkedin"></i> LinkedIn Profile
                                         </a>
                                         <a href="https://twitter.com/__m9nx" target="_blank" class="social-link">
-                                            <span>🐦</span> Twitter/X
+                                            <i class="icon-real social-twitter"></i> Twitter/X
                                         </a>
                                     </div>
                                 </div>
@@ -168,52 +169,52 @@
                 <nav class="nav-menu">
                     <ul class="nav-list">
                         <li class="nav-item active" data-category="today">
-                            <!-- <span class="nav-icon">📅</span> -->
+                            <i class="icon-real nav-icon-today"></i>
                             <span class="nav-text">Today</span>
                             <span class="nav-count">0</span>
                         </li>
                         <li class="nav-item" data-category="overdue">
-                            <!-- <span class="nav-icon">⚠️</span> -->
+                            <i class="icon-real nav-icon-overdue"></i>
                             <span class="nav-text">Overdue</span>
                             <span class="nav-count">1</span>
                         </li>
                         <li class="nav-item" data-category="tomorrow">
-                            <!-- <span class="nav-icon">📆</span> -->
+                            <i class="icon-real nav-icon-tomorrow"></i>
                             <span class="nav-text">Tomorrow</span>
                             <span class="nav-count">0</span>
                         </li>
                         <li class="nav-item" data-category="thisweek">
-                            <!-- <span class="nav-icon">📋</span> -->
+                            <i class="icon-real nav-icon-thisweek"></i>
                             <span class="nav-text">This Week</span>
                             <span class="nav-count">0</span>
                         </li>
                         <li class="nav-item" data-category="next7days">
-                            <!-- <span class="nav-icon">🗓️</span> -->
+                            <i class="icon-real nav-icon-next7days"></i>
                             <span class="nav-text">Next 7 Days</span>
                             <span class="nav-count">0</span>
                         </li>
                         <li class="nav-item" data-category="planned">
-                            <!-- <span class="nav-icon">📌</span> -->
+                            <i class="icon-real nav-icon-planned"></i>
                             <span class="nav-text">Planned</span>
                             <span class="nav-count">1</span>
                         </li>
                         <li class="nav-item" data-category="all">
-                            <!-- <span class="nav-icon">📝</span> -->
+                            <i class="icon-real nav-icon-all"></i>
                             <span class="nav-text">All</span>
                             <span class="nav-count">1</span>
                         </li>
                         <li class="nav-item" data-category="someday">
-                            <!-- <span class="nav-icon">💭</span> -->
+                            <i class="icon-real nav-icon-someday"></i>
                             <span class="nav-text">Someday</span>
                             <span class="nav-count">0</span>
                         </li>
                         <li class="nav-item" data-category="completed">
-                            <!-- <span class="nav-icon">✅</span> -->
+                            <i class="icon-real nav-icon-completed"></i>
                             <span class="nav-text">Completed</span>
                             <span class="nav-count">0</span>
                         </li>
                         <li class="nav-item" data-category="tasks">
-                            <!-- <span class="nav-icon">📋</span> -->
+                            <i class="icon-real nav-icon-tasks"></i>
                             <span class="nav-text">Tasks</span>
                             <span class="nav-count">1</span>
                         </li>
@@ -221,7 +222,7 @@
                 </nav>
                 <div class="sidebar-footer">
                     <button class="add-project-btn">
-                        <span class="plus-icon">+</span>
+                        <i class="icon-real plus-icon"></i>
                         <span>Add Project</span>
                     </button>
                 </div>
@@ -263,14 +264,14 @@
                     <div class="task-input-section">
                         <div class="task-input-header">
                             <h3>Add New Task</h3>
-                            <button class="quick-add-btn" id="quickAddBtn" title="Quick Add Mode">⚡</button>
+                            <button class="quick-add-btn" id="quickAddBtn" title="Quick Add Mode"><i class="icon-real quick-add-icon"></i></button>
                         </div>
 
                         <div class="task-input-wrapper">
-                            <span class="input-icon">📝</span>
+                            <i class="icon-real input-icon-task"></i>
                             <input type="text" id="taskInput" class="task-input" placeholder='Enter task name...'>
                             <button class="add-task-btn" id="addTaskBtn">
-                                <span class="add-icon">+</span>
+                                <i class="icon-real add-task-icon"></i>
                             </button>
                         </div>
 
@@ -279,20 +280,20 @@
                                 <div class="option-group">
                                     <label for="taskPriority">Priority:</label>
                                     <select id="taskPriority" class="task-select">
-                                        <option value="low">🟢 Low</option>
-                                        <option value="medium" selected>🟡 Medium</option>
-                                        <option value="high">🔴 High</option>
+                                        <option value="low"><i class="priority-low"></i> Low</option>
+                                        <option value="medium" selected><i class="priority-medium"></i> Medium</option>
+                                        <option value="high"><i class="priority-high"></i> High</option>
                                     </select>
                                 </div>
 
                                 <div class="option-group">
                                     <label for="taskCategory">Category:</label>
                                     <select id="taskCategory" class="task-select">
-                                        <option value="today">📅 Today</option>
-                                        <option value="tomorrow">📆 Tomorrow</option>
-                                        <option value="thisweek">📋 This Week</option>
-                                        <option value="planned">📋 Planned</option>
-                                        <option value="someday">💭 Someday</option>
+                                        <option value="today"><i class="category-today"></i> Today</option>
+                                        <option value="tomorrow"><i class="category-tomorrow"></i> Tomorrow</option>
+                                        <option value="thisweek"><i class="category-thisweek"></i> This Week</option>
+                                        <option value="planned"><i class="category-planned"></i> Planned</option>
+                                        <option value="someday"><i class="category-someday"></i> Someday</option>
                                     </select>
                                 </div>
                             </div>
@@ -324,9 +325,9 @@
                             </div>
 
                             <div class="task-actions">
-                                <button class="task-action-btn secondary" id="cancelTaskBtn">Cancel</button>
+                                <button class="task-action-btn secondary" id="cancelTaskBtn"><i class="icon-real cancel-icon"></i> Cancel</button>
                                 <button class="task-action-btn primary" id="saveTaskBtn">
-                                    <span class="btn-icon">💾</span>
+                                    <i class="icon-real save-icon"></i>
                                     <span class="btn-text">Save Task</span>
                                 </button>
                             </div>
@@ -359,7 +360,7 @@
                     <div class="completed-tasks-toggle">
                         <button class="toggle-completed" id="toggleCompleted">
                             <span>Show Completed Tasks</span>
-                            <span class="dropdown-arrow">▼</span>
+                            <i class="icon-real dropdown-arrow"></i>
                         </button>
                     </div>
                 </div>
@@ -374,14 +375,14 @@
             <span class="timer-unit">m</span>
         </div>
         <button class="timer-btn" id="timerBtn">
-            <span class="play-icon">▶</span>
+            <i class="icon-real timer-play"></i>
         </button>
     </div>
 
     <!-- Timer Modal -->
     <div class="timer-modal" id="timerModal">
         <div class="timer-modal-content">
-            <button class="timer-close-btn" id="timerCloseBtn">✕</button>
+            <button class="timer-close-btn" id="timerCloseBtn"><i class="icon-real close-icon"></i></button>
 
             <div class="timer-background">
                 <div class="artwork-layer"></div>
@@ -438,20 +439,20 @@
 
                 <div class="timer-bottom-controls">
                     <button class="bottom-control-btn" id="homeBtn" title="Close timer and return to main interface">
-                        <div class="control-icon">🏠</div>
+                        <div class="control-icon"><i class="icon-real home-icon"></i></div>
                         <div class="control-label">Home</div>
                     </button>
                     <button class="bottom-control-btn" id="fullscreenBtn" title="Toggle fullscreen mode">
-                        <div class="control-icon">⛶</div>
+                        <div class="control-icon"><i class="icon-real fullscreen-icon"></i></div>
                         <div class="control-label">Fullscreen</div>
                     </button>
                     <button class="bottom-control-btn" id="timerModeBtn"
                         title="Change timer mode and return to main interface">
-                        <div class="control-icon">⏱️</div>
+                        <div class="control-icon"><i class="icon-real timer-mode-icon"></i></div>
                         <div class="control-label">Timer Mode</div>
                     </button>
                     <button class="bottom-control-btn" id="whiteNoiseBtn">
-                        <div class="control-icon">🎵</div>
+                        <div class="control-icon"><i class="icon-real white-noise-icon"></i></div>
                         <div class="control-label">White Noise</div>
                     </button>
                 </div>

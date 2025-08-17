@@ -1154,9 +1154,9 @@ input {
     border: 2px solid var(--border-color);
     border-radius: 12px;
     padding: 16px 20px;
-    gap: 12px;
     transition: all 0.2s ease;
     margin-bottom: 20px;
+    position: relative;
 }
 
 .task-input-wrapper:focus-within {
@@ -1166,8 +1166,16 @@ input {
 }
 
 .input-icon {
+    position: absolute;
+    left: 16px;
     font-size: 18px;
     color: var(--text-muted);
+    background: none !important;
+    border: none !important;
+    outline: none !important;
+    margin: 0 !important;
+    text-decoration: none !important;
+    z-index: 2;
 }
 
 .task-input {
@@ -1178,6 +1186,9 @@ input {
     font-size: 16px;
     color: var(--text-primary);
     line-height: 1.5;
+    padding-left: 45px;
+    padding-right: 50px;
+    text-align: left;
 }
 
 .task-input::placeholder {
@@ -1185,26 +1196,35 @@ input {
 }
 
 .add-task-btn {
-    background: var(--accent-color);
+    position: absolute;
+    right: 8px;
+    background: transparent;
     border: none;
-    border-radius: 8px;
-    padding: 8px 12px;
-    color: white;
+    border-radius: 6px;
+    padding: 6px 8px;
+    color: var(--accent-color);
     cursor: pointer;
     transition: all 0.2s ease;
     display: flex;
     align-items: center;
     justify-content: center;
+    width: 32px;
+    height: 32px;
+    z-index: 3;
 }
 
 .add-task-btn:hover {
-    background: var(--accent-hover);
+    background: rgba(255, 68, 68, 0.1);
     transform: translateY(-1px);
 }
 
 .add-icon {
-    font-size: 16px;
+    font-size: 14px;
     font-weight: bold;
+    background: none !important;
+    border: none !important;
+    margin: 0 !important;
+    outline: none !important;
 }
 
 /* Task Options */
@@ -2029,27 +2049,44 @@ input {
     border-radius: 50%;
     cursor: pointer;
     transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
 }
 
 .task-checkbox:hover {
     border-color: var(--accent-color);
+    transform: scale(1.1);
 }
 
 .task-checkbox.completed {
     background-color: var(--accent-color);
     border-color: var(--accent-color);
-    position: relative;
+    animation: completePulse 0.3s ease;
 }
 
 .task-checkbox.completed::after {
     content: '✓';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
     color: white;
     font-size: 12px;
     font-weight: bold;
+    line-height: 1;
+}
+
+@keyframes completePulse {
+    0% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 var(--accent-color);
+    }
+    50% {
+        transform: scale(1.2);
+        box-shadow: 0 0 0 10px rgba(var(--accent-color), 0.3);
+    }
+    100% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(var(--accent-color), 0);
+    }
 }
 
 .task-content {
@@ -2060,11 +2097,13 @@ input {
     font-size: 16px;
     color: var(--text-primary);
     margin-bottom: 4px;
+    transition: all 0.3s ease;
 }
 
 .task-title.completed {
     text-decoration: line-through;
     color: var(--text-muted);
+    opacity: 0.7;
 }
 
 .task-meta {
@@ -2072,6 +2111,7 @@ input {
     gap: 12px;
     font-size: 12px;
     color: var(--text-muted);
+    align-items: center;
 }
 
 .task-priority {
@@ -2102,11 +2142,24 @@ input {
     align-items: center;
     justify-content: center;
     transition: all 0.2s ease;
+    border: none;
+    cursor: pointer;
 }
 
 .task-action-btn:hover {
     background-color: var(--bg-hover);
     color: var(--text-primary);
+    transform: scale(1.1);
+}
+
+.task-action-btn.edit-task:hover {
+    background-color: var(--yellow-light);
+    color: var(--yellow-color);
+}
+
+.task-action-btn.delete-task:hover {
+    background-color: var(--red-light);
+    color: var(--red-color);
 }
 
 /* Responsive Design */
@@ -2236,6 +2289,24 @@ input {
 
     .task-input {
         font-size: 14px;
+        padding-left: 40px;
+        padding-right: 45px;
+        text-align: left;
+    }
+    
+    .input-icon {
+        left: 12px;
+        font-size: 16px;
+    }
+    
+    .add-task-btn {
+        right: 6px;
+        width: 28px;
+        height: 28px;
+    }
+    
+    .add-icon {
+        font-size: 12px;
     }
 
     .top-bar {
@@ -2789,8 +2860,83 @@ input {
 @media (max-width: 768px) {
     .settings-modal-content {
         width: 100vw;
-        height: 100vh;
+        margin: 0;
         border-radius: 0;
-        padding: 20px;
+        height: 100vh;
     }
+
+    .settings-close-btn {
+        top: 20px;
+        right: 20px;
+    }
+
+    .settings-sidebar {
+        border-right: none;
+        border-bottom: 1px solid var(--border-color);
+        padding-bottom: 20px;
+        margin-bottom: 20px;
+    }
+
+    .settings-nav {
+        display: flex;
+        overflow-x: auto;
+        gap: 12px;
+    }
+
+    .settings-nav-item {
+        white-space: nowrap;
+        min-width: fit-content;
+    }
+}
+
+/* Clean Icon Styles - Remove all visual artifacts */
+.icon-real,
+button .icon-real,
+.btn .icon-real,
+.nav-item .icon-real,
+.task-action-btn .icon-real,
+input + .icon-real,
+.input-icon .icon-real {
+    background: none !important;
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+    text-decoration: none !important;
+    text-shadow: none !important;
+    margin-right: 6px;
+    padding: 0 !important;
+}
+
+/* Specific fixes for task input - clean positioning */
+.task-input-wrapper .input-icon,
+.task-input-wrapper .icon-real {
+    background: transparent !important;
+    border: none !important;
+    outline: none !important;
+    position: absolute;
+    left: 16px;
+    margin: 0 !important;
+    z-index: 2;
+}
+
+/* Fix for add button - no background */
+.add-task-btn,
+.add-task-btn .icon-real,
+.add-task-btn .add-icon {
+    background: transparent !important;
+    border: none !important;
+    outline: none !important;
+}
+
+.add-task-btn .icon-real {
+    color: var(--accent-color) !important;
+    background: none !important;
+}
+
+/* Clean all button icons */
+button[class*="btn"] .icon-real,
+button .icon-real {
+    background: inherit !important;
+    border: none !important;
+    outline: none !important;
 }

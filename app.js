@@ -41,12 +41,95 @@ class FocusToDoApp {
     init() {
         console.log('Initializing FocusToDoApp...');
         this.setupEventListeners();
+        this.protectIcons();
         this.applyTheme();
         this.updateThemeIcon();
+        
+        // Add some sample tasks if no tasks exist (for testing)
+        if (this.tasks.length === 0) {
+            this.addSampleTasks();
+        }
+        
         this.renderTasks();
         this.updateStats();
         this.updateCategoryCounts();
         console.log('FocusToDoApp initialized successfully');
+    }
+
+    // Add sample tasks for testing
+    addSampleTasks() {
+        const sampleTasks = [
+            {
+                id: '1',
+                title: 'Complete project proposal',
+                completed: false,
+                priority: 'high',
+                category: 'today',
+                createdAt: new Date().toISOString(),
+                dueDate: new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString(), // Tomorrow
+                estimatedTime: 120,
+                actualTime: 0,
+                description: 'Finish the project proposal for the client meeting'
+            },
+            {
+                id: '2',
+                title: 'Review team performance',
+                completed: true,
+                priority: 'medium',
+                category: 'completed',
+                createdAt: new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString(), // Yesterday
+                dueDate: new Date().toISOString(), // Today
+                estimatedTime: 60,
+                actualTime: 75,
+                description: 'Monthly team performance review',
+                completedAt: new Date().toISOString()
+            },
+            {
+                id: '3',
+                title: 'Plan weekend trip',
+                completed: false,
+                priority: 'low',
+                category: 'someday',
+                createdAt: new Date().toISOString(),
+                dueDate: null,
+                estimatedTime: 30,
+                actualTime: 0,
+                description: 'Research and plan the weekend getaway'
+            }
+        ];
+
+        this.tasks = sampleTasks;
+        this.saveTasks();
+    }
+
+    // Protect icons from copying
+    protectIcons() {
+        // Disable context menu on all icons
+        document.addEventListener('contextmenu', (e) => {
+            if (e.target.classList.contains('icon-real') || 
+                e.target.closest('.icon-real')) {
+                e.preventDefault();
+                return false;
+            }
+        });
+
+        // Disable text selection on icons
+        document.addEventListener('selectstart', (e) => {
+            if (e.target.classList.contains('icon-real') || 
+                e.target.closest('.icon-real')) {
+                e.preventDefault();
+                return false;
+            }
+        });
+
+        // Disable drag on icons
+        document.addEventListener('dragstart', (e) => {
+            if (e.target.classList.contains('icon-real') || 
+                e.target.closest('.icon-real')) {
+                e.preventDefault();
+                return false;
+            }
+        });
     }
 
     setupEventListeners() {
@@ -210,14 +293,18 @@ class FocusToDoApp {
 
     updateThemeIcon() {
         const themeToggle = document.querySelector('.theme-toggle');
-        const icons = {
-            'dark': '🌙',
-            'light': '☀️',
-            'ocean': '🌊',
-            'matrix': '💚',
-            'yellow': '⚡'
-        };
-        themeToggle.textContent = icons[this.theme];
+        const themeIcon = themeToggle.querySelector('.icon-real');
+        if (themeIcon) {
+            // Remove all theme classes
+            themeIcon.classList.remove('theme-toggle-icon', 'theme-toggle-light');
+            
+            // Add appropriate class based on theme
+            if (this.theme === 'light') {
+                themeIcon.classList.add('theme-toggle-light');
+            } else {
+                themeIcon.classList.add('theme-toggle-icon');
+            }
+        }
     }
 
     updateThemeSelector() {
@@ -248,13 +335,12 @@ class FocusToDoApp {
         // Quick add mode toggle
         quickAddBtn.addEventListener('click', () => {
             isExpanded = !isExpanded;
+            const quickIcon = quickAddBtn.querySelector('.icon-real');
             if (isExpanded) {
                 taskOptions.classList.add('expanded');
-                quickAddBtn.textContent = '⚡';
                 quickAddBtn.title = 'Simple Mode';
             } else {
                 taskOptions.classList.remove('expanded');
-                quickAddBtn.textContent = '⚡';
                 quickAddBtn.title = 'Advanced Mode';
                 this.resetTaskForm();
             }
@@ -263,6 +349,7 @@ class FocusToDoApp {
         // Simple task input (Enter key)
         taskInput.addEventListener('keypress', (e) => {
             if (e.key === 'Enter' && e.target.value.trim()) {
+                console.log('Enter pressed, task input:', e.target.value.trim());
                 if (!isExpanded) {
                     this.addTask(e.target.value.trim());
                     e.target.value = '';
@@ -274,6 +361,7 @@ class FocusToDoApp {
 
         // Simple add button
         addTaskBtn.addEventListener('click', () => {
+            console.log('Add task button clicked, input value:', taskInput.value.trim());
             if (taskInput.value.trim()) {
                 if (!isExpanded) {
                     this.addTask(taskInput.value.trim());
@@ -389,6 +477,7 @@ class FocusToDoApp {
 
     // Task Management
     addTask(title) {
+        console.log('Adding task:', title);
         const task = {
             id: Date.now().toString(),
             title: title,
@@ -403,21 +492,33 @@ class FocusToDoApp {
         };
 
         this.tasks.push(task);
+        console.log('Task added to array. Total tasks:', this.tasks.length);
         this.saveTasks();
         this.renderTasks();
         this.updateStats();
         this.updateCategoryCounts();
+        console.log('Task rendering completed');
     }
 
     toggleTask(taskId) {
+        console.log('Toggling task:', taskId);
         const task = this.tasks.find(t => t.id === taskId);
         if (task) {
             task.completed = !task.completed;
             task.completedAt = task.completed ? new Date().toISOString() : null;
+            console.log('Task status changed to:', task.completed);
+            
+            // Show notification
+            const message = task.completed ? `Task "${task.title}" completed! 🎉` : `Task "${task.title}" marked as incomplete`;
+            this.showNotification(message, task.completed ? 'success' : 'info');
+            
             this.saveTasks();
             this.renderTasks();
             this.updateStats();
             this.updateCategoryCounts();
+            console.log('Task toggle completed');
+        } else {
+            console.error('Task not found:', taskId);
         }
     }
 
@@ -481,42 +582,55 @@ class FocusToDoApp {
 
         switch (this.currentCategory) {
             case 'today':
-                // TODO: Implement logic to filter tasks due today
-                return this.tasks.filter(task => !task.completed);
+                // Tasks created today or due today
+                return this.tasks.filter(task => {
+                    const taskDate = new Date(task.createdAt);
+                    const isCreatedToday = taskDate.toDateString() === today.toDateString();
+                    const isDueToday = task.dueDate && new Date(task.dueDate).toDateString() === today.toDateString();
+                    return isCreatedToday || isDueToday;
+                });
 
             case 'overdue':
-                // TODO: Implement logic to filter overdue tasks
-                return this.tasks.filter(task => !task.completed && task.dueDate && new Date(task.dueDate) < today);
+                // Tasks with due dates that have passed
+                return this.tasks.filter(task => task.dueDate && new Date(task.dueDate) < today);
 
             case 'tomorrow':
-                // TODO: Implement logic to filter tasks due tomorrow
-                return this.tasks.filter(task => !task.completed && task.dueDate &&
+                // Tasks due tomorrow
+                return this.tasks.filter(task => task.dueDate &&
                     new Date(task.dueDate).toDateString() === tomorrow.toDateString());
 
             case 'thisweek':
-                // TODO: Implement logic to filter tasks due this week
-                return this.tasks.filter(task => !task.completed);
+                // Tasks due within this week
+                return this.tasks.filter(task => {
+                    if (!task.dueDate) return false;
+                    const dueDate = new Date(task.dueDate);
+                    return dueDate >= today && dueDate <= weekFromNow;
+                });
 
             case 'next7days':
-                // TODO: Implement logic to filter tasks due in next 7 days
-                return this.tasks.filter(task => !task.completed);
+                // Tasks due in the next 7 days
+                return this.tasks.filter(task => {
+                    if (!task.dueDate) return false;
+                    const dueDate = new Date(task.dueDate);
+                    return dueDate >= today && dueDate <= weekFromNow;
+                });
 
             case 'high':
-                return this.tasks.filter(task => !task.completed && task.priority === 'high');
+                return this.tasks.filter(task => task.priority === 'high');
 
             case 'medium':
-                return this.tasks.filter(task => !task.completed && task.priority === 'medium');
+                return this.tasks.filter(task => task.priority === 'medium');
 
             case 'low':
-                return this.tasks.filter(task => !task.completed && task.priority === 'low');
+                return this.tasks.filter(task => task.priority === 'low');
 
             case 'planned':
-                // TODO: Implement logic for planned tasks (tasks with due dates)
-                return this.tasks.filter(task => !task.completed && task.dueDate);
+                // Tasks with due dates
+                return this.tasks.filter(task => task.dueDate);
 
             case 'someday':
-                // TODO: Implement logic for someday tasks (no due date)
-                return this.tasks.filter(task => !task.completed && !task.dueDate);
+                // Tasks without due dates
+                return this.tasks.filter(task => !task.dueDate);
 
             case 'completed':
                 return this.tasks.filter(task => task.completed);
@@ -524,34 +638,57 @@ class FocusToDoApp {
             case 'all':
             case 'tasks':
             default:
-                return this.tasks;
+                return this.tasks; // Return all tasks
         }
     }
 
     // Rendering
     renderTasks() {
+        console.log('Rendering tasks. Current category:', this.currentCategory);
+        console.log('Total tasks in memory:', this.tasks.length);
+        
         const taskList = document.getElementById('taskList');
         const emptyState = document.getElementById('emptyState');
         const filteredTasks = this.getFilteredTasks();
-        const incompleteTasks = filteredTasks.filter(task => !task.completed);
-
-        if (incompleteTasks.length === 0) {
-            taskList.innerHTML = '';
-            taskList.appendChild(emptyState);
+        
+        // For completed category, show completed tasks; for others, show based on category logic
+        let tasksToShow;
+        if (this.currentCategory === 'completed') {
+            tasksToShow = filteredTasks; // Show completed tasks
+        } else if (this.currentCategory === 'all' || this.currentCategory === 'tasks') {
+            tasksToShow = filteredTasks; // Show all tasks (completed and incomplete)
         } else {
-            emptyState.style.display = 'none';
-            taskList.innerHTML = incompleteTasks.map(task => this.createTaskHTML(task)).join('');
+            tasksToShow = filteredTasks.filter(task => !task.completed); // Show incomplete tasks for other categories
+        }
+        
+        console.log('Filtered tasks:', filteredTasks.length);
+        console.log('Tasks to show:', tasksToShow.length);
+
+        if (tasksToShow.length === 0) {
+            console.log('No tasks to show - showing empty state');
+            taskList.innerHTML = '';
+            if (emptyState) {
+                emptyState.style.display = 'block';
+                taskList.appendChild(emptyState);
+            }
+        } else {
+            console.log('Rendering', tasksToShow.length, 'tasks');
+            if (emptyState) {
+                emptyState.style.display = 'none';
+            }
+            taskList.innerHTML = tasksToShow.map(task => this.createTaskHTML(task)).join('');
 
             // Add event listeners to new task elements
             this.attachTaskEventListeners();
+            console.log('Task event listeners attached');
         }
     }
 
     createTaskHTML(task) {
-        const priorityColors = {
-            'high': '🔴',
-            'medium': '🟡',
-            'low': '🟢'
+        const priorityIcons = {
+            'high': '<i class="icon-real priority-high"></i>',
+            'medium': '<i class="icon-real priority-medium"></i>',
+            'low': '<i class="icon-real priority-low"></i>'
         };
 
         return `
@@ -561,15 +698,15 @@ class FocusToDoApp {
                     <div class="task-title ${task.completed ? 'completed' : ''}">${task.title}</div>
                     <div class="task-meta">
                         <div class="task-priority">
-                            ${priorityColors[task.priority]} ${task.priority}
+                            ${priorityIcons[task.priority]} ${task.priority}
                         </div>
-                        ${task.estimatedTime ? `<span>⏱️ ${task.estimatedTime}min</span>` : ''}
-                        ${task.dueDate ? `<span>📅 ${new Date(task.dueDate).toLocaleDateString()}</span>` : ''}
+                        ${task.estimatedTime ? `<span><i class="icon-real timer-mode-icon"></i> ${task.estimatedTime}min</span>` : ''}
+                        ${task.dueDate ? `<span><i class="icon-real nav-icon-today"></i> ${new Date(task.dueDate).toLocaleDateString()}</span>` : ''}
                     </div>
                 </div>
                 <div class="task-actions">
-                    <button class="task-action-btn edit-task" data-task-id="${task.id}">✏️</button>
-                    <button class="task-action-btn delete-task" data-task-id="${task.id}">🗑️</button>
+                    <button class="task-action-btn edit-task" data-task-id="${task.id}"><i class="icon-real task-edit"></i></button>
+                    <button class="task-action-btn delete-task" data-task-id="${task.id}"><i class="icon-real task-delete"></i></button>
                 </div>
             </div>
         `;
@@ -579,24 +716,36 @@ class FocusToDoApp {
         // Checkbox toggles
         document.querySelectorAll('.task-checkbox').forEach(checkbox => {
             checkbox.addEventListener('click', (e) => {
-                this.toggleTask(e.target.dataset.taskId);
+                e.preventDefault();
+                e.stopPropagation();
+                const taskId = e.target.dataset.taskId;
+                if (taskId) {
+                    this.toggleTask(taskId);
+                }
             });
         });
 
-        // Edit buttons
+        // Edit buttons - handle both button and icon clicks
         document.querySelectorAll('.edit-task').forEach(btn => {
             btn.addEventListener('click', (e) => {
-                // TODO: Implement task editing modal/interface
-                const taskId = e.target.dataset.taskId;
-                this.openEditTaskModal(taskId);
+                e.preventDefault();
+                e.stopPropagation();
+                // Get task ID from button or from parent button if clicked on icon
+                const taskId = e.target.dataset.taskId || e.target.closest('.edit-task').dataset.taskId;
+                if (taskId) {
+                    this.openEditTaskModal(taskId);
+                }
             });
         });
 
-        // Delete buttons
+        // Delete buttons - handle both button and icon clicks
         document.querySelectorAll('.delete-task').forEach(btn => {
             btn.addEventListener('click', (e) => {
-                const taskId = e.target.dataset.taskId;
-                if (confirm('Are you sure you want to delete this task?')) {
+                e.preventDefault();
+                e.stopPropagation();
+                // Get task ID from button or from parent button if clicked on icon
+                const taskId = e.target.dataset.taskId || e.target.closest('.delete-task').dataset.taskId;
+                if (taskId && confirm('Are you sure you want to delete this task?')) {
                     this.deleteTask(taskId);
                 }
             });
@@ -625,13 +774,40 @@ class FocusToDoApp {
     }
 
     updateCategoryCounts() {
-        // TODO: Implement real-time count updates for each category
+        const now = new Date();
+        const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+        const tomorrow = new Date(today.getTime() + 24 * 60 * 60 * 1000);
+        const weekFromNow = new Date(today.getTime() + 7 * 24 * 60 * 60 * 1000);
+
         const categories = {
-            'today': this.tasks.filter(task => !task.completed).length, // TODO: Filter by today's date
-            'overdue': 0, // TODO: Calculate overdue tasks
-            'tomorrow': 0, // TODO: Calculate tomorrow's tasks
-            'thisweek': 0, // TODO: Calculate this week's tasks
-            'next7days': 0, // TODO: Calculate next 7 days tasks
+            'today': this.tasks.filter(task => {
+                if (task.completed) return false;
+                const taskDate = new Date(task.createdAt);
+                const isCreatedToday = taskDate.toDateString() === today.toDateString();
+                const isDueToday = task.dueDate && new Date(task.dueDate).toDateString() === today.toDateString();
+                return isCreatedToday || isDueToday;
+            }).length,
+            
+            'overdue': this.tasks.filter(task => {
+                return !task.completed && task.dueDate && new Date(task.dueDate) < today;
+            }).length,
+            
+            'tomorrow': this.tasks.filter(task => {
+                return !task.completed && task.dueDate && new Date(task.dueDate).toDateString() === tomorrow.toDateString();
+            }).length,
+            
+            'thisweek': this.tasks.filter(task => {
+                if (task.completed || !task.dueDate) return false;
+                const dueDate = new Date(task.dueDate);
+                return dueDate >= today && dueDate <= weekFromNow;
+            }).length,
+            
+            'next7days': this.tasks.filter(task => {
+                if (task.completed || !task.dueDate) return false;
+                const dueDate = new Date(task.dueDate);
+                return dueDate >= today && dueDate <= weekFromNow;
+            }).length,
+            
             'high': this.tasks.filter(task => !task.completed && task.priority === 'high').length,
             'medium': this.tasks.filter(task => !task.completed && task.priority === 'medium').length,
             'low': this.tasks.filter(task => !task.completed && task.priority === 'low').length,
@@ -662,7 +838,11 @@ class FocusToDoApp {
     startTimer() {
         this.isTimerRunning = true;
         const timerBtn = document.getElementById('timerBtn');
-        timerBtn.innerHTML = '<span class="play-icon">⏸️</span>';
+        const timerIcon = timerBtn.querySelector('.icon-real');
+        if (timerIcon) {
+            timerIcon.classList.remove('timer-play');
+            timerIcon.classList.add('timer-pause');
+        }
 
         this.timerInterval = setInterval(() => {
             if (this.timerSeconds === 0) {
@@ -683,7 +863,11 @@ class FocusToDoApp {
         this.isTimerRunning = false;
         clearInterval(this.timerInterval);
         const timerBtn = document.getElementById('timerBtn');
-        timerBtn.innerHTML = '<span class="play-icon">▶</span>';
+        const timerIcon = timerBtn.querySelector('.icon-real');
+        if (timerIcon) {
+            timerIcon.classList.remove('timer-pause');
+            timerIcon.classList.add('timer-play');
+        }
     }
 
     resetTimer() {
@@ -969,9 +1153,15 @@ class FocusToDoApp {
 
     // Modal and Interface Methods (To be implemented)
     openEditTaskModal(taskId) {
-        // TODO: Create and show task editing modal
-        // Should allow editing: title, priority, due date, estimated time, tags
-        console.log('Opening edit modal for task:', taskId);
+        // Simple alert for now - can be enhanced later with a proper modal
+        const task = this.tasks.find(t => t.id === taskId);
+        if (task) {
+            const newTitle = prompt(`Edit task: "${task.title}"`, task.title);
+            if (newTitle && newTitle.trim() && newTitle.trim() !== task.title) {
+                this.editTask(taskId, { title: newTitle.trim() });
+                this.showNotification('Task updated successfully!', 'success');
+            }
+        }
     }
 
     addProject() {
@@ -1048,9 +1238,9 @@ class FocusToDoApp {
         // Style the notification
         notification.style.cssText = `
             position: fixed;
-            top: 20px;
+            top: 80px;
             right: 20px;
-            background: ${type === 'error' ? '#ef4444' : '#10b981'};
+            background: ${type === 'error' ? '#ef4444' : type === 'info' ? '#3b82f6' : '#10b981'};
             color: white;
             padding: 12px 20px;
             border-radius: 8px;
@@ -1060,6 +1250,8 @@ class FocusToDoApp {
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
             transform: translateX(100%);
             transition: transform 0.3s ease;
+            max-width: 300px;
+            word-wrap: break-word;
         `;
 
         document.body.appendChild(notification);
@@ -1292,7 +1484,8 @@ class FocusToDoApp {
 // Initialize the application when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
     console.log('DOM Content Loaded - Initializing app...');
-    window.focusToDoApp = new FocusToDoApp();
+    window.app = new FocusToDoApp();
+    window.focusToDoApp = window.app; // Keep both for compatibility
 });
 
 // Keyboard shortcuts (bonus feature)
