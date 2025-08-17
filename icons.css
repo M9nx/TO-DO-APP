@@ -1,0 +1,364 @@
+/* Focus To-Do Real Icons CSS */
+/* This file contains all icon definitions to replace emoji icons */
+
+/* Font Awesome Icon Base */
+.icon-real {
+    font-family: 'Font Awesome 6 Free', 'Font Awesome 6 Brands';
+    font-weight: 900;
+    font-style: normal;
+    display: inline-block;
+    line-height: 1;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    margin-right: 6px;
+    /* Prevent text selection and copying */
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    /* Prevent right-click context menu */
+    -webkit-touch-callout: none;
+    -webkit-tap-highlight-color: transparent;
+    /* Clean rendering - remove any background artifacts */
+    background: none !important;
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+    /* Improve rendering */
+    text-shadow: none;
+    backface-visibility: hidden;
+    transform: translateZ(0);
+}
+
+/* Navigation Icons */
+.nav-icon-today::before { content: '\f073'; } /* fa-calendar-alt */
+.nav-icon-overdue::before { content: '\f071'; } /* fa-exclamation-triangle */
+.nav-icon-tomorrow::before { content: '\f274'; } /* fa-calendar-day */
+.nav-icon-thisweek::before { content: '\f073'; } /* fa-calendar */
+.nav-icon-next7days::before { content: '\f783'; } /* fa-calendar-week */
+.nav-icon-planned::before { content: '\f276'; } /* fa-calendar-check */
+.nav-icon-all::before { content: '\f0c5'; } /* fa-copy */
+.nav-icon-someday::before { content: '\f0eb'; } /* fa-lightbulb */
+.nav-icon-completed::before { content: '\f00c'; } /* fa-check */
+.nav-icon-tasks::before { content: '\f0ae'; } /* fa-tasks */
+
+/* Top Bar Icons */
+.theme-toggle-icon::before { content: '\f186'; } /* fa-moon */
+.theme-toggle-light::before { content: '\f185'; } /* fa-sun */
+.settings-icon::before { content: '\f013'; } /* fa-cog */
+.stats-icon::before { content: '\f080'; } /* fa-chart-bar */
+.notifications-icon::before { content: '\f0f3'; } /* fa-bell */
+
+/* Task Input Icons */
+.input-icon-task::before { content: '\f303'; } /* fa-pen - cleaner pen icon */
+.add-task-icon::before { content: '\f067'; } /* fa-plus */
+.quick-add-icon::before { content: '\f0e7'; } /* fa-lightning-bolt */
+
+/* Priority Icons */
+.priority-high::before { 
+    content: '\f06a'; /* fa-exclamation-circle */
+    color: #ff4757;
+}
+.priority-medium::before { 
+    content: '\f111'; /* fa-circle */
+    color: #ffa502;
+}
+.priority-low::before { 
+    content: '\f111'; /* fa-circle */
+    color: #26de81;
+}
+
+/* Task Action Icons */
+.task-edit::before { content: '\f303'; } /* fa-pen - clean pen icon */
+.task-delete::before { content: '\f2ed'; } /* fa-trash-alt - cleaner trash */
+.task-complete::before { content: '\f00c'; } /* fa-check */
+.task-timer::before { content: '\f017'; } /* fa-clock */
+
+/* Timer Icons */
+.timer-play::before { content: '\f04b'; } /* fa-play */
+.timer-pause::before { content: '\f04c'; } /* fa-pause */
+.timer-stop::before { content: '\f04d'; } /* fa-stop */
+.timer-reset::before { content: '\f01e'; } /* fa-redo */
+
+/* Modal Icons */
+.close-icon::before { content: '\f00d'; } /* fa-times */
+.save-icon::before { content: '\f0c7'; } /* fa-save */
+.cancel-icon::before { content: '\f00d'; } /* fa-times */
+
+/* Control Icons */
+.home-icon::before { content: '\f015'; } /* fa-home */
+.fullscreen-icon::before { content: '\f065'; } /* fa-expand */
+.timer-mode-icon::before { content: '\f017'; } /* fa-clock */
+.white-noise-icon::before { content: '\f001'; } /* fa-music */
+
+/* Category Select Icons */
+.category-today::before { content: '\f073'; }
+.category-tomorrow::before { content: '\f274'; }
+.category-thisweek::before { content: '\f073'; }
+.category-planned::before { content: '\f276'; }
+.category-someday::before { content: '\f0eb'; }
+
+/* Social Icons */
+.social-github::before { 
+    content: '\f09b'; /* fa-github */
+    font-family: 'Font Awesome 6 Brands';
+    font-weight: 400;
+}
+.social-linkedin::before { 
+    content: '\f08c'; /* fa-linkedin */
+    font-family: 'Font Awesome 6 Brands';
+    font-weight: 400;
+}
+.social-twitter::before { 
+    content: '\f099'; /* fa-twitter */
+    font-family: 'Font Awesome 6 Brands';
+    font-weight: 400;
+}
+
+/* Plus Icon for Add Project */
+.plus-icon::before { content: '\f067'; } /* fa-plus */
+
+/* Dropdown Arrow */
+.dropdown-arrow::before { content: '\f078'; } /* fa-chevron-down */
+.dropdown-arrow-up::before { content: '\f077'; } /* fa-chevron-up */
+
+/* View Control Icons */
+.view-list::before { content: '\f0ca'; } /* fa-list-ul */
+.view-grid::before { content: '\f009'; } /* fa-th */
+
+/* Settings Menu Icons */
+.settings-general::before { content: '\f013'; } /* fa-cog */
+.settings-pomodoro::before { content: '\f017'; } /* fa-clock */
+.settings-alarm::before { content: '\f0f3'; } /* fa-bell */
+.settings-about::before { content: '\f05a'; } /* fa-info-circle */
+
+/* General utility classes */
+.icon-real {
+    display: inline-block;
+    margin-right: 8px;
+    /* Additional protection against copying */
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    /* Prevent dragging */
+    -webkit-user-drag: none;
+    -khtml-user-drag: none;
+    -moz-user-drag: none;
+    -o-user-drag: none;
+    /* Prevent highlighting */
+    -webkit-tap-highlight-color: transparent;
+    outline: none;
+    /* Improve rendering quality */
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: -moz-crisp-edges;
+    image-rendering: crisp-edges;
+}
+
+.icon-real.no-margin {
+    margin: 0;
+}
+
+.icon-real.large {
+    font-size: 1.3em;
+}
+
+.icon-real.small {
+    font-size: 0.9em;
+}
+
+/* Disable context menu on all icons */
+.icon-real::before {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    pointer-events: none;
+    /* Remove any visual artifacts */
+    background: none !important;
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+    text-decoration: none !important;
+}
+
+/* Clean button styling for icons */
+button .icon-real,
+.btn .icon-real {
+    background: none !important;
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+/* Input field icon styling */
+.input-icon .icon-real,
+.task-input-wrapper .icon-real {
+    background: transparent !important;
+    border: none !important;
+    outline: none !important;
+    margin: 0;
+    padding: 0;
+}
+
+/* Animation for interactive icons */
+.icon-real.animated {
+    transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.icon-real.animated:hover {
+    transform: scale(1.1);
+}
+
+/* Special styling for navigation icons */
+.nav-item .icon-real {
+    margin-right: 10px;
+    width: 16px;
+    text-align: center;
+    font-size: 14px;
+    opacity: 0.8;
+    transition: all 0.3s ease;
+}
+
+.nav-item:hover .icon-real,
+.nav-item.active .icon-real {
+    opacity: 1;
+    transform: translateX(2px);
+}
+
+/* Button icon adjustments */
+.icon-btn .icon-real,
+.timer-btn .icon-real,
+.add-task-btn .icon-real {
+    margin: 0;
+    font-size: 16px;
+    opacity: 0.9;
+    transition: all 0.2s ease;
+}
+
+.icon-btn:hover .icon-real,
+.timer-btn:hover .icon-real,
+.add-task-btn:hover .icon-real {
+    opacity: 1;
+    transform: scale(1.1);
+}
+
+/* Task input icon positioning */
+.task-input-wrapper {
+    position: relative;
+}
+
+.task-input-wrapper .icon-real {
+    position: absolute;
+    left: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--accent-color);
+    margin: 0;
+    z-index: 2;
+    font-size: 16px;
+    opacity: 0.8;
+    transition: all 0.3s ease;
+    /* Enhanced protection against copying */
+    pointer-events: none;
+    -webkit-user-drag: none;
+    -khtml-user-drag: none;
+    -moz-user-drag: none;
+    -o-user-drag: none;
+}
+
+.task-input-wrapper:focus-within .icon-real {
+    color: var(--accent-color);
+    opacity: 1;
+    transform: translateY(-50%) scale(1.1);
+}
+
+.task-input-wrapper .task-input {
+    padding-left: 48px;
+    background: transparent;
+}
+
+/* Settings menu icons */
+.settings-menu-item .icon-real {
+    margin-right: 8px;
+    width: 14px;
+    text-align: center;
+    font-size: 12px;
+}
+
+/* Remove all visual artifacts and unwanted elements */
+.icon-real,
+.icon-real::before,
+.icon-real::after {
+    text-decoration: none !important;
+    border: none !important;
+    outline: none !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+}
+
+/* Clean add button styling */
+.add-task-btn .icon-real {
+    margin: 0 !important;
+    padding: 0 !important;
+    background: none !important;
+}
+
+/* Clean input icon styling */
+.input-icon .icon-real {
+    position: absolute;
+    left: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    margin: 0 !important;
+    background: none !important;
+    border: none !important;
+}
+
+/* Remove artifacts from task action buttons */
+.task-action-btn .icon-real {
+    margin: 0 !important;
+    background: none !important;
+    border: none !important;
+}
+
+/* Ensure clean navigation icons */
+.nav-item .icon-real {
+    background: none !important;
+    border: none !important;
+}
+
+/* Control icon containers */
+.control-icon .icon-real {
+    margin: 0;
+    font-size: 1.2em;
+}
+
+/* Task action buttons */
+.task-actions .icon-real {
+    margin: 0;
+    font-size: 14px;
+}
+
+/* Priority icon colors */
+.priority-high::before { 
+    color: #ff4757 !important;
+}
+.priority-medium::before { 
+    color: #ffa502 !important;
+}
+.priority-low::before { 
+    color: #26de81 !important;
+}
+
+/* Task meta icons */
+.task-meta .icon-real {
+    margin-right: 4px;
+    font-size: 12px;
+}
